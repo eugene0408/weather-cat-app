@@ -1,13 +1,60 @@
 import { useState } from "react";
 import "./App.css";
-import { SearchBar, WeatherIcon } from "./components";
-import { Typography, Box, Grid, Stack, Button } from "@mui/material";
+import styled from "styled-components";
 
 import {
   getWeatherByCity,
   searchSimilarCities,
   getForecastByCity,
 } from "./services/weatherApi";
+
+import { useWeather } from "./context/WeatherContext";
+
+import {
+  SearchBar,
+  Suggestions,
+  WeatherCard,
+  ForecastCard,
+} from "./components";
+
+const Container = styled.div`
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  @media (min-width: 420px) {
+    max-width: 356px;
+  }
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
+`;
+
+const ForecastWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4em;
+  width: 100%;
+`;
 
 function App() {
   const [city, setCity] = useState("");
@@ -16,26 +63,15 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
 
+  const { setSunTimes } = useWeather();
+
   const handleSearch = async () => {
     setWeather(null);
     setForecast(null);
     setSuggestions([]);
     try {
-      // const [weatherResult, similarCities] = await Promise.all([
-      //   getWeatherByCity(city),
-      //   searchSimilarCities(city),
-      // ]);
-      // setWeather(weatherResult);
-      // setSuggestions(similarCities);
       const similarCities = await searchSimilarCities(city);
       setSuggestions(similarCities);
-      const weatherResult = await getWeatherByCity(city);
-      setWeather(weatherResult);
-      const forecastResult = await getForecastByCity(city);
-      setForecast(forecastResult);
-
-      // console.log(weatherResult);
-      console.log(forecastResult);
     } catch (error) {
       setCityNotFound(true);
     }
@@ -43,91 +79,48 @@ function App() {
 
   const handleSuggestionClick = async (suggestedName) => {
     setCity(suggestedName);
-    handleSearch();
+    try {
+      const weatherResult = await getWeatherByCity(suggestedName);
+      setWeather(weatherResult);
+      setSunTimes({
+        sunrise: weatherResult.sys.sunrise,
+        sunset: weatherResult.sys.sunset,
+      });
+      // console.log(weatherResult);
+      const forecastResult = await getForecastByCity(suggestedName);
+      setForecast(forecastResult);
+      setSuggestions([]);
+      console.log(forecastResult);
+    } catch (error) {
+      setCityNotFound(true);
+    }
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <Grid>
-          <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
-        </Grid>
-        {weather && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {/* ****** Result text ******  */}
-            <Box>
-              <Typography variant="h5">
-                {weather.name} {weather.sys?.state} {weather.sys.country}
-              </Typography>
-              <Typography variant="h6">
-                {weather.weather[0].descriotion}
-              </Typography>
-              <Typography variant="h3">
-                {Math.round(weather.main.temp)}°C
-              </Typography>
-            </Box>
-            {/* ******* Result icon ******* */}
-            <Box>
-              <WeatherIcon
-                main={weather.weather[0].main}
-                fallback={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              />
-            </Box>
-          </Box>
-        )}
+      <Container>
+        <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
 
         {suggestions !== undefined && suggestions.length > 0 && (
-          <Box>
-            <Typography variant="h4">Similar places</Typography>
-            <Stack spacing={1} sx={{ mt: 1 }}>
-              {suggestions.map((item, index) => (
-                <Button
-                  key={`s${index}`}
-                  variant="outlined"
-                  onClick={() => handleSuggestionClick(item.name)}
-                >
-                  {item.name} {item?.state} {item.country}
-                </Button>
-              ))}
-            </Stack>
-          </Box>
+          <Suggestions
+            suggestions={suggestions}
+            handleClick={handleSuggestionClick}
+          />
         )}
 
+        {weather && <WeatherCard weather={weather} />}
+
         {forecast && (
-          <Box>
-            <Typography variant="h3">Forecast</Typography>
-            {forecast.map((item, index) => (
-              <Box key={`f${index}`}>
-                <Typography variant="h5">
-                  {new Date(item.dt * 1000).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  - {Math.round(item.main.temp)}°C
-                </Typography>
-                <WeatherIcon
-                  main={item.weather[0].main}
-                  fallback={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                />
-              </Box>
-            ))}
-          </Box>
+          <section>
+            <h3> Forecast </h3>
+            <ForecastWrapper>
+              {forecast.map((item, index) => (
+                <ForecastCard forecastItem={item} key={`f${index}`} />
+              ))}
+            </ForecastWrapper>
+          </section>
         )}
-      </Grid>
+      </Container>
     </>
   );
 }

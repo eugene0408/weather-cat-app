@@ -1,35 +1,49 @@
-import React from "react";
+import { useWeather } from "../context/WeatherContext";
 
-const mapWeatherToIcon = (main, fallback) => {
-  switch (main) {
-    case "Clear":
-      return "sunny";
-    case "Rain":
-    case "Drizzle":
-      return "rain";
-    case "Clouds":
-      return "cloud";
-    case "Snow":
-      return "snow";
-    case "Thunderstorm":
-      return "thunderstorm";
-    case "Mist":
-    case "Smoke":
-    case "Haze":
-    case "Fog":
-      return "fog";
-    default:
-      return fallback;
-  }
+const mapWeatherToIcon = (main, isDayTime) => {
+  if (main === "Clear" && isDayTime) return "sunny";
+  if (main === "Clear" && !isDayTime) return "moon";
+  if (["Rain", "Drizzle"].includes(main)) return "rain";
+  if (main === "Clouds") return "cloud";
+  if (main === "Snow") return "snow";
+  if (main === "Thunderstorm") return "thunderstorm";
+  if (["Mist", "Smoke", "Haze", "Fog"].includes(main)) return "fog";
+  return undefined;
 };
 
-export const WeatherIcon = ({ main }) => {
-  const iconName = mapWeatherToIcon(main);
+export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
+  const { sunTimes } = useWeather();
+
+  const getIsDayTime = () => {
+    if (!sunTimes.sunrise || !sunTimes.sunset) return true; //default
+    //return true if its day hours
+    return timestamp >= sunTimes.sunrise && timestamp < sunTimes.sunset
+      ? true
+      : false;
+  };
+
+  const isDayTime = getIsDayTime();
+
+  const iconName = mapWeatherToIcon(main, isDayTime);
+
   return (
-    <img
-      src={`icons/${iconName}.png`}
-      alt="main"
-      style={{ width: 64, height: 64 }}
-    />
+    <>
+      {/* Use custom icon */}
+      {iconName && (
+        <img
+          src={`icons/${iconName}.png`}
+          alt={iconName}
+          style={{ width: `${size}px`, height: `${size}px` }}
+        />
+      )}
+      {/* Use default openweather icon */}
+      {iconName === undefined && (
+        <img
+          src={fallback}
+          alt="main"
+          style={{ width: `${size}px`, height: `${size}px` }}
+        />
+      )}
+    </>
   );
 };
