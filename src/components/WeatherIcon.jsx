@@ -33,7 +33,7 @@ export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
         <img
           src={`icons/${iconName}.png`}
           alt={iconName}
-          style={{ width: `${size}px`, height: `${size}px` }}
+          style={{ width: size, height: size }}
         />
       )}
       {/* Use default openweather icon */}

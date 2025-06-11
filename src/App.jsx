@@ -15,6 +15,7 @@ import {
   Suggestions,
   WeatherCard,
   ForecastCard,
+  CatImage,
 } from "./components";
 
 const Container = styled.div`
@@ -50,10 +51,16 @@ const Container = styled.div`
 
 const ForecastWrapper = styled.section`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: 4em;
+  margin-top: 5rem;
   width: 100%;
+`;
+
+const CatImageWrapper = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5rem;
 `;
 
 function App() {
@@ -66,18 +73,25 @@ function App() {
   const { setSunTimes } = useWeather();
 
   const handleSearch = async () => {
+    setCityNotFound(false);
     setWeather(null);
     setForecast(null);
     setSuggestions([]);
     try {
       const similarCities = await searchSimilarCities(city);
-      setSuggestions(similarCities);
+      if (similarCities.length > 0) {
+        setSuggestions(similarCities);
+      } else {
+        setCityNotFound(true);
+      }
     } catch (error) {
+      console.error("Search error: ", error);
       setCityNotFound(true);
     }
   };
 
   const handleSuggestionClick = async (suggestedName) => {
+    setCityNotFound(false);
     setCity(suggestedName);
     try {
       const weatherResult = await getWeatherByCity(suggestedName);
@@ -90,8 +104,9 @@ function App() {
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      console.log(forecastResult);
+      // console.log(forecastResult);
     } catch (error) {
+      console.error("Get result error: ", error);
       setCityNotFound(true);
     }
   };
@@ -100,7 +115,7 @@ function App() {
     <>
       <Container>
         <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
-
+        {cityNotFound && <p>City not found, try to input a part of name</p>}
         {suggestions !== undefined && suggestions.length > 0 && (
           <Suggestions
             suggestions={suggestions}
@@ -111,14 +126,17 @@ function App() {
         {weather && <WeatherCard weather={weather} />}
 
         {forecast && (
-          <section>
-            <h3> Forecast </h3>
-            <ForecastWrapper>
-              {forecast.map((item, index) => (
-                <ForecastCard forecastItem={item} key={`f${index}`} />
-              ))}
-            </ForecastWrapper>
-          </section>
+          <ForecastWrapper>
+            {forecast.map((item, index) => (
+              <ForecastCard forecastItem={item} key={`f${index}`} />
+            ))}
+          </ForecastWrapper>
+        )}
+
+        {weather && (
+          <CatImageWrapper>
+            <CatImage weather={weather} size={"320px"} />
+          </CatImageWrapper>
         )}
       </Container>
     </>

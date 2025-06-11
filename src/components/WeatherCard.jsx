@@ -38,10 +38,10 @@ const Item = styled.div`
 
 const IconWrapper = styled.div`
   position: absolute;
-  top: -20%;
+  top: -50%;
   right: -20%;
-  height: 120px;
-  width: 120px;
+  height: 180px;
+  width: 180px;
 `;
 
 export const WeatherCard = ({ weather }) => {
@@ -61,6 +61,7 @@ export const WeatherCard = ({ weather }) => {
       <IconWrapper>
         <WeatherIcon
           main={weather.weather[0].main}
+          size={"100%"}
           timestamp={weather.dt}
           fallback={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
         />

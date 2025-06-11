@@ -38,6 +38,7 @@ const TextWrapper = styled.div`
 
 const Weather = styled.p`
   font-size: 16px;
+  font-weight: 300;
   opacity: 0.7;
   margin: 0;
 `;
@@ -51,6 +52,7 @@ const Temperature = styled.p`
 
 const Time = styled.p`
   font-size: 16px;
+  font-weight: 400;
   opacity: 0.7;
   margin: 0;
 `;
@@ -61,6 +63,7 @@ export const ForecastCard = ({ forecastItem }) => {
       <IconWrapper>
         <WeatherIcon
           main={forecastItem.weather[0].main}
+          size="120px"
           timestamp={forecastItem.dt}
           fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
         />
