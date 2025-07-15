@@ -12,12 +12,13 @@ const mapWeatherToIcon = (main, isDayTime) => {
 };
 
 export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
-  const { sunTimes } = useWeather();
+  const { localWeatherData } = useWeather();
 
   const getIsDayTime = () => {
-    if (!sunTimes.sunrise || !sunTimes.sunset) return true; //default
+    if (!localWeatherData.sunrise || !localWeatherData.sunset) return true; //default
     //return true if its day hours
-    return timestamp >= sunTimes.sunrise && timestamp < sunTimes.sunset
+    return timestamp >= localWeatherData.sunrise &&
+      timestamp < localWeatherData.sunset
       ? true
       : false;
   };
@@ -38,11 +39,7 @@ export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
       )}
       {/* Use default openweather icon */}
       {iconName === undefined && (
-        <img
-          src={fallback}
-          alt="main"
-          style={{ width: `${size}px`, height: `${size}px` }}
-        />
+        <img src={fallback} alt="main" style={{ width: size, height: size }} />
       )}
     </>
   );

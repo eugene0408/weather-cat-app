@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import { useLiveClock } from "../hooks/useLiveClock";
 import { WeatherIcon } from "./WeatherIcon";
+
+import TimeIcon from "../assets/local-time.svg?react";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   width: 80%;
-  margin-top: 5em;
-  padding-left: 0.8em;
+  padding: 0.5em 0 1em 0.8em;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
 `;
@@ -37,14 +39,34 @@ const Item = styled.div`
 `;
 
 const IconWrapper = styled.div`
+  --size: 160px;
   position: absolute;
-  top: -50%;
-  right: -20%;
-  height: 180px;
-  width: 180px;
+  top: calc(-1 * var(--size) / 4);
+  right: calc(-1 * var(--size) / 2);
+  height: var(--size);
+  width: var(--size);
+`;
+
+const TimeWrapper = styled.div`
+  position: absolute;
+  right: 0.8em;
+  bottom: 1em;
+  display: flex;
+  align-items: center;
+  & svg {
+    height: 1.5em;
+    width: 1.5em;
+    opacity: 0.3;
+    margin-right: 0.3em;
+  }
+  & span {
+    font-size: 20px;
+    opacity: 0.9;
+  }
 `;
 
 export const WeatherCard = ({ weather }) => {
+  const liveTime = useLiveClock();
   return (
     <Wrapper>
       <Item>
@@ -66,6 +88,10 @@ export const WeatherCard = ({ weather }) => {
           fallback={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
         />
       </IconWrapper>
+      <TimeWrapper>
+        <TimeIcon />
+        <span>{liveTime}</span>
+      </TimeWrapper>
     </Wrapper>
   );
 };

@@ -19,15 +19,13 @@ import {
 } from "./components";
 
 const Container = styled.div`
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
   position: relative;
+  gap: 16px;
+  padding: 16px;
+  margin: 0 auto;
 
   @media (min-width: 420px) {
     max-width: 356px;
@@ -49,6 +47,10 @@ const Container = styled.div`
   }
 `;
 
+const WeatherWrapper = styled.main`
+  margin-top: 3rem;
+`;
+
 const ForecastWrapper = styled.section`
   display: flex;
   justify-content: flex-start;
@@ -59,8 +61,8 @@ const ForecastWrapper = styled.section`
 
 const CatImageWrapper = styled.section`
   display: flex;
-  justify-content: flex-start;
-  margin-top: 5rem;
+  justify-content: center;
+  margin-top: 1rem;
 `;
 
 function App() {
@@ -70,13 +72,18 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
 
-  const { setSunTimes } = useWeather();
+  const { setLocalWeatherData } = useWeather();
 
   const handleSearch = async () => {
     setCityNotFound(false);
     setWeather(null);
     setForecast(null);
     setSuggestions([]);
+    // setLocalWeatherData({
+    //   sunrise: null,
+    //   sunset: null,
+    //   timezone: null,
+    // });
     try {
       const similarCities = await searchSimilarCities(city);
       if (similarCities.length > 0) {
@@ -96,15 +103,16 @@ function App() {
     try {
       const weatherResult = await getWeatherByCity(suggestedName);
       setWeather(weatherResult);
-      setSunTimes({
+      setLocalWeatherData({
         sunrise: weatherResult.sys.sunrise,
         sunset: weatherResult.sys.sunset,
+        timezone: weatherResult.timezone,
       });
-      // console.log(weatherResult);
+
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      // console.log(forecastResult);
+      console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
       setCityNotFound(true);
@@ -123,7 +131,17 @@ function App() {
           />
         )}
 
-        {weather && <WeatherCard weather={weather} />}
+        {weather && (
+          <WeatherWrapper>
+            <WeatherCard weather={weather} />
+          </WeatherWrapper>
+        )}
+
+        {weather && (
+          <CatImageWrapper>
+            <CatImage weather={weather} size={"360px"} />
+          </CatImageWrapper>
+        )}
 
         {forecast && (
           <ForecastWrapper>
@@ -131,12 +149,6 @@ function App() {
               <ForecastCard forecastItem={item} key={`f${index}`} />
             ))}
           </ForecastWrapper>
-        )}
-
-        {weather && (
-          <CatImageWrapper>
-            <CatImage weather={weather} size={"320px"} />
-          </CatImageWrapper>
         )}
       </Container>
     </>

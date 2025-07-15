@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLocalTime } from "../hooks/useLocalTime";
 import { WeatherIcon } from "./WeatherIcon";
 
 const CardWrapper = styled.div`
@@ -58,6 +59,9 @@ const Time = styled.p`
 `;
 
 export const ForecastCard = ({ forecastItem }) => {
+  const formatToLocalTime = useLocalTime();
+  const localTime = formatToLocalTime(forecastItem.dt);
+
   return (
     <CardWrapper>
       <IconWrapper>
@@ -71,12 +75,7 @@ export const ForecastCard = ({ forecastItem }) => {
       <TextWrapper>
         <Weather>{forecastItem.weather[0].description}</Weather>
         <Temperature>{Math.round(forecastItem.main.temp)}°C</Temperature>
-        <Time>
-          {new Date(forecastItem.dt * 1000).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </Time>
+        <Time>{localTime}</Time>
       </TextWrapper>
     </CardWrapper>
   );
