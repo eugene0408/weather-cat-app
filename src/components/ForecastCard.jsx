@@ -37,9 +37,14 @@ const TextWrapper = styled.div`
   padding-bottom: 1em;
 `;
 
-const Weather = styled.p`
+const Weather = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 16px;
+  line-height: 1.2;
   font-weight: 300;
+  text-align: center;
+  min-height: calc(1.2em * 2);
   opacity: 0.7;
   margin: 0;
 `;
