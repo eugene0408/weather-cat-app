@@ -25,13 +25,14 @@ const Item = styled.div`
   }
   &:nth-of-type(1) {
     font-size: 36px;
+    line-height: 1.2;
     font-weight: 700;
     opacity: 0.5;
   }
   &:nth-of-type(2) {
     font-size: 22px;
     font-weight: 300;
-    line-height: 1.2;
+    line-height: 1;
   }
   &:nth-of-type(3) {
     font-size: 36px;

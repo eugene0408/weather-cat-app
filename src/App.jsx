@@ -83,7 +83,7 @@ const SearchWrapper = styled.div`
 `;
 
 const WeatherWrapper = styled.main`
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
 `;
 
