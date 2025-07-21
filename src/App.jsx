@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
+import useLocalStorage from "use-local-storage";
 
 import {
   getWeatherByCity,
@@ -14,6 +15,7 @@ import { useIsMobile } from "./hooks/useIsMobile";
 import {
   SearchBar,
   Suggestions,
+  UserSuggestions,
   WeatherCard,
   ForecastCard,
   CatImage,
@@ -29,7 +31,8 @@ const Container = styled.div`
   padding: 16px;
   margin: 0 auto;
   box-sizing: border-box;
-  min-height: 100vh;
+  height: 100dvh;
+  /* min-height: 100vh; */
 
   @media (min-width: 420px) {
     max-width: 356px;
@@ -103,8 +106,18 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
-  // const [localSuggestions, setLocalSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
+
+  const defaultSuggestions = ["London", "Paris", "New York"];
+  const [userSuggestions, setUserSuggestions] = useLocalStorage(
+    "cities",
+    defaultSuggestions
+  );
+
+  const saveUserCity = (city) => {
+    const updated = [city, ...userSuggestions.filter((c) => c != city)];
+    setUserSuggestions(updated.slice(0, 3));
+  };
 
   const [searchPosition, setSearchPosition] = useState("center");
 
@@ -132,6 +145,7 @@ function App() {
   const handleSuggestionClick = async (suggestedName) => {
     setCityNotFound(false);
     setCity(suggestedName);
+    saveUserCity(suggestedName);
     try {
       const weatherResult = await getWeatherByCity(suggestedName);
       setWeather(weatherResult);
@@ -164,12 +178,18 @@ function App() {
       <SearchWrapper position={searchPosition}>
         <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
         {cityNotFound && <p>City not found, try to input a part of name</p>}
+
         {suggestions !== undefined && suggestions.length > 0 && (
           <Suggestions
             suggestions={suggestions}
             handleClick={handleSuggestionClick}
           />
         )}
+
+        <UserSuggestions
+          userSuggestions={userSuggestions}
+          handleClick={handleSuggestionClick}
+        />
       </SearchWrapper>
 
       {weather && (

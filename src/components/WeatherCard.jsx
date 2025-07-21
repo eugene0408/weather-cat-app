@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   position: relative;
   width: 80%;
-  padding: 0.5em 0 1em 0.8em;
+  padding: 0.5em 0 0.5em 0.8em;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
 `;
@@ -29,19 +29,20 @@ const Item = styled.div`
     opacity: 0.5;
   }
   &:nth-of-type(2) {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 300;
+    line-height: 1.2;
   }
   &:nth-of-type(3) {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 700;
   }
 `;
 
 const IconWrapper = styled.div`
-  --size: 160px;
+  --size: 150px;
   position: absolute;
-  top: calc(-1 * var(--size) / 4);
+  top: calc(-1 * var(--size) / 3);
   right: calc(-1 * var(--size) / 2);
   height: var(--size);
   width: var(--size);

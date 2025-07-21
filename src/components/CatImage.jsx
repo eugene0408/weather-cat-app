@@ -3,6 +3,7 @@ const mapCatImage = (weather) => {
   const main = weather.weather[0].main;
 
   if (["Rain", "Drizzle", "Thunderstorm"].includes(main)) return "rain";
+  if (main === "Clouds") return "cloudy";
   if (temp < 5) return "cold";
   if (temp < 25) return "sunny1";
   if (temp >= 25) return "sunny2";

@@ -17,8 +17,14 @@ const ItemButton = styled.button`
   align-items: center;
   width: 100%;
   font-size: 16px;
+  line-height: 1.5;
+  padding: 0.3em 0.5em;
   &:hover {
     background: orange;
+  }
+  & span {
+    opacity: 0.5;
+    margin-left: 0.25em;
   }
 `;
 
@@ -27,7 +33,10 @@ export const Suggestions = ({ suggestions, handleClick }) => {
     <Wrapper>
       {suggestions.map((item, index) => (
         <ItemButton onClick={() => handleClick(item.name)} key={`sug${index}`}>
-          {item.name} {item?.state} {item.country}
+          {item.name}
+          <span>
+            {item?.state} {item.country}
+          </span>
         </ItemButton>
       ))}
     </Wrapper>
