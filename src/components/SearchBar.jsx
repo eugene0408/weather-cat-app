@@ -53,13 +53,21 @@ const ActionButton = styled.button`
   }
 `;
 
-export const SearchBar = ({ city, setCity, onSearch }) => {
+export const SearchBar = ({
+  city,
+  setCity,
+  onSearch,
+  handleFocus,
+  handleBlur,
+}) => {
   return (
     <Wrapper>
       <StyledLocationIcon />
       <Input
         value={city}
         onChange={(e) => setCity(e.target.value)}
+        onFocus={(e) => handleFocus(e)}
+        onBlur={() => handleBlur()}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             onSearch();

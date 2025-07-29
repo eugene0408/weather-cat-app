@@ -32,6 +32,7 @@ const Container = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   height: 100dvh;
+  max-width: 768px;
   /* min-height: 100vh; */
 
   @media (min-width: 420px) {
@@ -65,6 +66,7 @@ const SearchWrapper = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  transition: all 0.3s ease;
   ${(props) =>
     props.position === "top" &&
     `
@@ -77,13 +79,13 @@ const SearchWrapper = styled.div`
     `
       top: auto;
       left: 0;
-      bottom: 10px;
+      bottom: 20px;
       transform: none;
     `}
 `;
 
 const WeatherWrapper = styled.main`
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
 `;
 
@@ -102,13 +104,16 @@ const ForecastWrapper = styled.section`
 `;
 
 function App() {
+  const defaultSuggestions = ["London", "Paris", "New York"];
+
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
+  const [searchPosition, setSearchPosition] = useState("center");
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const defaultSuggestions = ["London", "Paris", "New York"];
   const [userSuggestions, setUserSuggestions] = useLocalStorage(
     "cities",
     defaultSuggestions
@@ -119,12 +124,23 @@ function App() {
     setUserSuggestions(updated.slice(0, 3));
   };
 
-  const [searchPosition, setSearchPosition] = useState("center");
-
   const { setLocalWeatherData } = useWeather();
   const isMobile = useIsMobile();
 
+  const handleInputFocus = (e) => {
+    setIsInputFocused(true);
+    if (isMobile && weather) {
+      setWeather(null);
+      e.target.value = "";
+    }
+  };
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false);
+  };
+
   const handleSearch = async () => {
+    setIsInputFocused(false);
     setCityNotFound(false);
     setWeather(null);
     setForecast(null);
@@ -143,6 +159,7 @@ function App() {
   };
 
   const handleSuggestionClick = async (suggestedName) => {
+    setIsInputFocused(false);
     setCityNotFound(false);
     setCity(suggestedName);
     saveUserCity(suggestedName);
@@ -168,15 +185,23 @@ function App() {
   useEffect(() => {
     if (!weather) {
       setSearchPosition("center");
+    } else if (isInputFocused && isMobile) {
+      setSearchPosition("center");
     } else {
       setSearchPosition(isMobile ? "bottom" : "top");
     }
-  }, [weather, isMobile]);
+  }, [weather, isMobile, isInputFocused]);
 
   return (
     <Container>
       <SearchWrapper position={searchPosition}>
-        <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
+        <SearchBar
+          city={city}
+          setCity={setCity}
+          onSearch={handleSearch}
+          handleFocus={handleInputFocus}
+          handleBlur={handleInputBlur}
+        />
         {cityNotFound && <p>City not found, try to input a part of name</p>}
 
         {suggestions !== undefined && suggestions.length > 0 && (
@@ -204,7 +229,7 @@ function App() {
         </CatImageWrapper>
       )}
 
-      {forecast && (
+      {weather && forecast && (
         <ForecastWrapper>
           {forecast.map((item, index) => (
             <ForecastCard forecastItem={item} key={`f${index}`} />

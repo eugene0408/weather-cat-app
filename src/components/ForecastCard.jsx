@@ -6,8 +6,8 @@ const CardWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 140px;
-  width: 120px;
+  height: 120px;
+  width: 100px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   overflow: visible;
@@ -50,14 +50,14 @@ const Weather = styled.div`
 `;
 
 const Temperature = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
   margin: 0;
 `;
 
 const Time = styled.p`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   opacity: 0.7;
   margin: 0;
@@ -72,7 +72,7 @@ export const ForecastCard = ({ forecastItem }) => {
       <IconWrapper>
         <WeatherIcon
           main={forecastItem.weather[0].main}
-          size="120px"
+          size="100px"
           timestamp={forecastItem.dt}
           fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
         />

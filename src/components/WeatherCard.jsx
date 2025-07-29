@@ -41,7 +41,7 @@ const Item = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  --size: 150px;
+  --size: 120px;
   position: absolute;
   top: calc(-1 * var(--size) / 3);
   right: calc(-1 * var(--size) / 2);
