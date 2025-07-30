@@ -3,12 +3,14 @@ import { useLocalTime } from "../hooks/useLocalTime";
 import { WeatherIcon } from "./WeatherIcon";
 
 const CardWrapper = styled.div`
+  --width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 120px;
-  width: 100px;
-  border-radius: 10px;
+  flex-direction: column;
+  height: 200px;
+  width: var(--width);
+  border-radius: calc(var(--width) / 2);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   overflow: visible;
   position: relative;
@@ -21,9 +23,9 @@ const IconWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: auto;
-  position: absolute;
+  /* position: absolute;
   left: 0;
-  top: -50%;
+  top: -20%; */
 `;
 
 const TextWrapper = styled.div`
@@ -31,10 +33,10 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50%;
-  height: 50%;
+  /* margin-top: 50%; */
+  /* height: 50%; */
   width: 100%;
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
 `;
 
 const Weather = styled.div`
@@ -63,16 +65,27 @@ const Time = styled.p`
   margin: 0;
 `;
 
+const Date = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 1;
+  margin: 0;
+`;
+
 export const ForecastCard = ({ forecastItem }) => {
   const formatToLocalTime = useLocalTime();
   const localTime = formatToLocalTime(forecastItem.dt);
 
   return (
     <CardWrapper>
+      <TextWrapper>
+        <Time>{localTime.time}</Time>
+        <Date>{localTime.date}</Date>
+      </TextWrapper>
       <IconWrapper>
         <WeatherIcon
           main={forecastItem.weather[0].main}
-          size="100px"
+          size="100%"
           timestamp={forecastItem.dt}
           fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
         />
@@ -80,7 +93,6 @@ export const ForecastCard = ({ forecastItem }) => {
       <TextWrapper>
         <Weather>{forecastItem.weather[0].description}</Weather>
         <Temperature>{Math.round(forecastItem.main.temp)}°C</Temperature>
-        <Time>{localTime}</Time>
       </TextWrapper>
     </CardWrapper>
   );

@@ -10,7 +10,12 @@ export const useLocalTime = () => {
 
     const hours = cityTime.getUTCHours().toString().padStart(2, "0");
     const minutes = cityTime.getUTCMinutes().toString().padStart(2, "0");
+    const day = cityTime.getUTCDate().toString().padStart(2, "0");
+    const month = (cityTime.getUTCMonth() + 1).toString().padStart(2, "0");
 
-    return `${hours}:${minutes}`;
+    return {
+      time: `${hours}:${minutes}`,
+      date: `${day}/${month}`,
+    };
   };
 };

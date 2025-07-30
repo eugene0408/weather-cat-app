@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import styled from "styled-components";
 import useLocalStorage from "use-local-storage";
@@ -99,12 +99,13 @@ const ForecastWrapper = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 2.5rem;
+  /* margin-top: 0.5rem; */
   width: 100%;
 `;
 
 function App() {
   const defaultSuggestions = ["London", "Paris", "New York"];
+  const searchRef = useRef(null);
 
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
@@ -134,12 +135,14 @@ function App() {
       setWeather(null); //clear weather
     }
     setTimeout(() => {
-      window.scrollTo({
-        // scroll to bottom of the page
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
-    });
+      if (searchRef.current) {
+        searchRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+          inline: "nearest",
+        });
+      }
+    }, 100);
   };
 
   const handleInputBlur = () => {
@@ -199,7 +202,7 @@ function App() {
 
   return (
     <Container>
-      <SearchWrapper position={searchPosition}>
+      <SearchWrapper position={searchPosition} ref={searchRef}>
         <SearchBar
           city={city}
           setCity={setCity}

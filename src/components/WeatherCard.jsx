@@ -8,10 +8,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 80%;
-  padding: 0.5em 0 0.5em 0.8em;
+  width: 100%;
+  padding: 0.8em 0 0.8em 1em;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
 `;
 const Item = styled.div`
   display: flex;
@@ -44,7 +45,8 @@ const IconWrapper = styled.div`
   --size: 120px;
   position: absolute;
   top: calc(-1 * var(--size) / 3);
-  right: calc(-1 * var(--size) / 2);
+  /* right: calc(-1 * var(--size) / 2); */
+  right: -10px;
   height: var(--size);
   width: var(--size);
 `;
