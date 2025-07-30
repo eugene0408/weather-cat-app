@@ -79,7 +79,7 @@ const SearchWrapper = styled.div`
     `
       top: auto;
       left: 0;
-      bottom: 20px;
+      bottom: 10px;
       transform: none;
     `}
 `;
@@ -183,9 +183,9 @@ function App() {
   };
 
   useEffect(() => {
-    if (!weather) {
-      setSearchPosition("center");
-    } else if (isInputFocused && isMobile) {
+    if (isInputFocused && isMobile) {
+      setSearchPosition("bottom");
+    } else if (!weather) {
       setSearchPosition("center");
     } else {
       setSearchPosition(isMobile ? "bottom" : "top");
