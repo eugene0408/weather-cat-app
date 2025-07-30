@@ -66,7 +66,7 @@ export const SearchBar = ({
       <Input
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        onFocus={(e) => handleFocus(e)}
+        onFocus={() => handleFocus()}
         onBlur={() => handleBlur()}
         onKeyDown={(e) => {
           if (e.key === "Enter") {

@@ -127,12 +127,19 @@ function App() {
   const { setLocalWeatherData } = useWeather();
   const isMobile = useIsMobile();
 
-  const handleInputFocus = (e) => {
+  const handleInputFocus = () => {
     setIsInputFocused(true);
+    setCity(""); //clear input
     if (isMobile && weather) {
-      setWeather(null);
-      e.target.value = "";
+      setWeather(null); //clear weather
     }
+    setTimeout(() => {
+      window.scrollTo({
+        // scroll to bottom of the page
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    });
   };
 
   const handleInputBlur = () => {
@@ -183,14 +190,12 @@ function App() {
   };
 
   useEffect(() => {
-    if (isInputFocused && isMobile) {
-      setSearchPosition("bottom");
-    } else if (!weather) {
+    if (!weather) {
       setSearchPosition("center");
     } else {
       setSearchPosition(isMobile ? "bottom" : "top");
     }
-  }, [weather, isMobile, isInputFocused]);
+  }, [weather, isMobile]);
 
   return (
     <Container>
