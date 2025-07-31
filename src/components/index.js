@@ -5,6 +5,7 @@ import { Suggestions } from "./Suggestions";
 import { WeatherCard } from "./WeatherCard";
 import { CatImage } from "./CatImage";
 import { UserSuggestions } from "./UserSuggestions";
+import { ForecastSlider } from "./ForecastSlider";
 
 export {
   SearchBar,
@@ -14,4 +15,5 @@ export {
   WeatherCard,
   CatImage,
   UserSuggestions,
+  ForecastSlider,
 };

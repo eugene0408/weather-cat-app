@@ -2,19 +2,25 @@ import styled from "styled-components";
 import { useLocalTime } from "../hooks/useLocalTime";
 import { WeatherIcon } from "./WeatherIcon";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const CardWrapper = styled.div`
-  --width: 100px;
+  --width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 200px;
+  height: 220px;
   width: var(--width);
   border-radius: calc(var(--width) / 2);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   overflow: visible;
   position: relative;
-  margin: 0 0.5em;
+  margin: 0;
 `;
 
 const IconWrapper = styled.div`
@@ -77,23 +83,25 @@ export const ForecastCard = ({ forecastItem }) => {
   const localTime = formatToLocalTime(forecastItem.dt);
 
   return (
-    <CardWrapper>
-      <TextWrapper>
-        <Time>{localTime.time}</Time>
-        <Date>{localTime.date}</Date>
-      </TextWrapper>
-      <IconWrapper>
-        <WeatherIcon
-          main={forecastItem.weather[0].main}
-          size="100%"
-          timestamp={forecastItem.dt}
-          fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
-        />
-      </IconWrapper>
-      <TextWrapper>
-        <Weather>{forecastItem.weather[0].description}</Weather>
-        <Temperature>{Math.round(forecastItem.main.temp)}°C</Temperature>
-      </TextWrapper>
-    </CardWrapper>
+    <Container>
+      <CardWrapper>
+        <TextWrapper>
+          <Time>{localTime.time}</Time>
+          <Date>{localTime.date}</Date>
+        </TextWrapper>
+        <IconWrapper>
+          <WeatherIcon
+            main={forecastItem.weather[0].main}
+            size="100%"
+            timestamp={forecastItem.dt}
+            fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
+          />
+        </IconWrapper>
+        <TextWrapper>
+          <Weather>{forecastItem.weather[0].description}</Weather>
+          <Temperature>{Math.round(forecastItem.main.temp)}°C</Temperature>
+        </TextWrapper>
+      </CardWrapper>
+    </Container>
   );
 };

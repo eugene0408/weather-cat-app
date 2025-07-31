@@ -36,5 +36,5 @@ export const getForecastByCity = async (city) => {
       units: "metric",
     },
   });
-  return response.data.list.slice(0, 4);
+  return response.data.list.slice(0, 12);
 };

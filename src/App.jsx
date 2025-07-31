@@ -18,6 +18,7 @@ import {
   UserSuggestions,
   WeatherCard,
   ForecastCard,
+  ForecastSlider,
   CatImage,
 } from "./components";
 
@@ -100,7 +101,7 @@ const ForecastWrapper = styled.section`
   justify-content: flex-start;
   align-items: center;
   /* margin-top: 0.5rem; */
-  width: 100%;
+  /* width: 100%; */
 `;
 
 function App() {
@@ -193,7 +194,6 @@ function App() {
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      // setIsInputFocused(false);
       console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
@@ -247,13 +247,7 @@ function App() {
         </CatImageWrapper>
       )}
 
-      {weather && forecast && (
-        <ForecastWrapper>
-          {forecast.map((item, index) => (
-            <ForecastCard forecastItem={item} key={`f${index}`} />
-          ))}
-        </ForecastWrapper>
-      )}
+      {weather && forecast && <ForecastSlider forecast={forecast} />}
     </Container>
   );
 }
