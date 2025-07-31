@@ -104,7 +104,16 @@ const ForecastWrapper = styled.section`
 `;
 
 function App() {
-  const defaultSuggestions = ["London", "Paris", "New York"];
+  const defaultSuggestions = [
+    "London",
+    "Paris",
+    "Kiev",
+    "New York",
+    "Sydney",
+    "Los Angeles",
+    "Tokyo",
+    "Rio de Janeiro",
+  ];
   const searchRef = useRef(null);
 
   const [city, setCity] = useState("");
@@ -122,7 +131,7 @@ function App() {
 
   const saveUserCity = (city) => {
     const updated = [city, ...userSuggestions.filter((c) => c != city)];
-    setUserSuggestions(updated.slice(0, 3));
+    setUserSuggestions(updated.slice(0, 8));
   };
 
   const { setLocalWeatherData } = useWeather();
@@ -169,7 +178,6 @@ function App() {
   };
 
   const handleSuggestionClick = async (suggestedName) => {
-    setIsInputFocused(false);
     setCityNotFound(false);
     setCity(suggestedName);
     saveUserCity(suggestedName);
@@ -185,6 +193,7 @@ function App() {
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
+      // setIsInputFocused(false);
       console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
@@ -218,11 +227,12 @@ function App() {
             handleClick={handleSuggestionClick}
           />
         )}
-
-        <UserSuggestions
-          userSuggestions={userSuggestions}
-          handleClick={handleSuggestionClick}
-        />
+        {!weather && (
+          <UserSuggestions
+            userSuggestions={userSuggestions}
+            handleClick={handleSuggestionClick}
+          />
+        )}
       </SearchWrapper>
 
       {weather && (
