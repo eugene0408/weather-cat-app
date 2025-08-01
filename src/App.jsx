@@ -88,12 +88,14 @@ const SearchWrapper = styled.div`
 const WeatherWrapper = styled.main`
   margin-top: 1.5rem;
   width: 100%;
+  z-index: 1;
 `;
 
 const CatImageWrapper = styled.section`
   display: flex;
   justify-content: center;
-  margin-top: -2.5rem;
+  margin-top: -3rem;
+  z-index: 2;
 `;
 
 const ForecastWrapper = styled.section`
@@ -101,7 +103,7 @@ const ForecastWrapper = styled.section`
   justify-content: flex-start;
   align-items: center;
   margin-top: -2rem;
-  width: 100%;
+  width: 95%;
 `;
 
 function App() {

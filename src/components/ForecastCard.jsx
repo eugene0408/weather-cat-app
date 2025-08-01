@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  --width: 80px;
+  --width: 74px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,7 @@ const CardWrapper = styled.div`
   height: 220px;
   width: var(--width);
   border-radius: calc(var(--width) / 2);
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   overflow: visible;
   position: relative;
   margin: 0;
@@ -39,16 +39,15 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin-top: 50%; */
-  /* height: 50%; */
   width: 100%;
-  /* padding-bottom: 1em; */
+  padding: 0 0.2em;
+  box-sizing: border-box;
 `;
 
 const Weather = styled.div`
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.2;
   font-weight: 300;
   text-align: center;
@@ -61,7 +60,8 @@ const Temperature = styled.p`
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  margin: 0;
+  margin-top: 1em;
+  margin-bottom: 0;
 `;
 
 const Time = styled.p`

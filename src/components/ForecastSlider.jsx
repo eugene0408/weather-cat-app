@@ -15,7 +15,7 @@ const CarouselWrapper = styled.div`
   overflow-y: visible;
 
   .slick-slide > div {
-    margin: 10px 0;
+    margin: 2px 0;
   }
 
   .slick-list {
@@ -63,7 +63,7 @@ const PrevArrow = (props) => {
   const { onClick, className } = props;
   return (
     <ArrowButton
-      style={{ left: "-20px" }}
+      style={{ left: "-30px" }}
       className={className}
       onClick={onClick}
     >
@@ -75,7 +75,7 @@ const NextArrow = (props) => {
   const { onClick, className } = props;
   return (
     <ArrowButton
-      style={{ right: "-20px" }}
+      style={{ right: "-30px" }}
       className={className}
       onClick={onClick}
     >
