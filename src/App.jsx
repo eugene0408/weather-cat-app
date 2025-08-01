@@ -86,29 +86,29 @@ const SearchWrapper = styled.div`
 `;
 
 const WeatherWrapper = styled.main`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   width: 100%;
 `;
 
 const CatImageWrapper = styled.section`
   display: flex;
   justify-content: center;
-  margin-top: -1.5rem;
+  margin-top: -2.5rem;
 `;
 
 const ForecastWrapper = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* margin-top: 0.5rem; */
-  /* width: 100%; */
+  margin-top: -2rem;
+  width: 100%;
 `;
 
 function App() {
   const defaultSuggestions = [
     "London",
     "Paris",
-    "Kiev",
+    "Kyiv",
     "New York",
     "Sydney",
     "Los Angeles",
@@ -247,7 +247,11 @@ function App() {
         </CatImageWrapper>
       )}
 
-      {weather && forecast && <ForecastSlider forecast={forecast} />}
+      {weather && forecast && (
+        <ForecastWrapper>
+          <ForecastSlider forecast={forecast} />
+        </ForecastWrapper>
+      )}
     </Container>
   );
 }
