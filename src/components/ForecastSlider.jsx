@@ -22,6 +22,10 @@ const CarouselWrapper = styled.div`
     margin: 0 -10;
   }
 
+  .slick-dots li {
+    margin: 0;
+  }
+
   .slick-dots li button:before {
     color: #999;
   }

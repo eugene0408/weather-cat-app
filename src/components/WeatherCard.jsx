@@ -58,10 +58,10 @@ const TimeWrapper = styled.div`
   display: flex;
   align-items: center;
   & svg {
-    height: 1.5em;
-    width: 1.5em;
+    height: 1em;
+    width: 1em;
     opacity: 0.3;
-    margin-right: 0.3em;
+    margin-right: 0.2em;
   }
   & span {
     font-size: 20px;
