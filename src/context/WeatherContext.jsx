@@ -6,6 +6,8 @@ export const useWeather = () => useContext(WeatherContext);
 
 export const WeatherProvider = ({ children }) => {
   const [localWeatherData, setLocalWeatherData] = useState({
+    name: "",
+    country: "",
     sunrise: null,
     sunset: null,
     timezone: null,

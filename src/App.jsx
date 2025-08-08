@@ -17,8 +17,8 @@ import {
   Suggestions,
   UserSuggestions,
   WeatherCard,
-  ForecastCard,
   ForecastSlider,
+  ForecastCard,
   CatImage,
 } from "./components";
 
@@ -125,7 +125,8 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
   const [searchPosition, setSearchPosition] = useState("center");
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [activeCard, setActiveCard] = useState(0);
+  // const [isInputFocused, setIsInputFocused] = useState(false);
 
   const [userSuggestions, setUserSuggestions] = useLocalStorage(
     "cities",
@@ -141,7 +142,6 @@ function App() {
   const isMobile = useIsMobile();
 
   const handleInputFocus = () => {
-    setIsInputFocused(true);
     setCity(""); //clear input
     if (isMobile && weather) {
       setWeather(null); //clear weather
@@ -157,12 +157,7 @@ function App() {
     }, 100);
   };
 
-  const handleInputBlur = () => {
-    setIsInputFocused(false);
-  };
-
   const handleSearch = async () => {
-    setIsInputFocused(false);
     setCityNotFound(false);
     setWeather(null);
     setForecast(null);
@@ -188,6 +183,8 @@ function App() {
       const weatherResult = await getWeatherByCity(suggestedName);
       setWeather(weatherResult);
       setLocalWeatherData({
+        name: weatherResult.name,
+        country: weatherResult.sys.country,
         sunrise: weatherResult.sys.sunrise,
         sunset: weatherResult.sys.sunset,
         timezone: weatherResult.timezone,
@@ -202,7 +199,7 @@ function App() {
       setCityNotFound(true);
     }
   };
-
+  // Searchbar positioning
   useEffect(() => {
     if (!weather) {
       setSearchPosition("center");
@@ -210,6 +207,14 @@ function App() {
       setSearchPosition(isMobile ? "bottom" : "top");
     }
   }, [weather, isMobile]);
+
+  // Active card reset
+  useEffect(() => {
+    setActiveCard(0);
+  }, [weather]);
+
+  const activeWeatherData =
+    activeCard === 0 ? weather : forecast[activeCard - 1];
 
   return (
     <Container>
@@ -219,7 +224,6 @@ function App() {
           setCity={setCity}
           onSearch={handleSearch}
           handleFocus={handleInputFocus}
-          handleBlur={handleInputBlur}
         />
         {cityNotFound && <p>City not found, try to input a part of name</p>}
 
@@ -239,19 +243,40 @@ function App() {
 
       {weather && (
         <WeatherWrapper>
-          <WeatherCard weather={weather} />
+          <WeatherCard weather={activeWeatherData} active={activeCard} />
         </WeatherWrapper>
       )}
 
       {weather && (
         <CatImageWrapper>
-          <CatImage weather={weather} size={"280px"} />
+          <CatImage weather={activeWeatherData} size={"280px"} />
         </CatImageWrapper>
       )}
 
       {weather && forecast && (
         <ForecastWrapper>
-          <ForecastSlider forecast={forecast} />
+          <ForecastSlider>
+            {/* First item for current weather */}
+            <div key={"f0"}>
+              <ForecastCard
+                forecastItem={weather}
+                active={activeCard}
+                setActive={setActiveCard}
+                index={0}
+              />
+            </div>
+            {/* Forecast items */}
+            {forecast.map((item, index) => (
+              <div key={`f${index + 1}`}>
+                <ForecastCard
+                  forecastItem={item}
+                  active={activeCard}
+                  setActive={setActiveCard}
+                  index={index + 1}
+                />
+              </div>
+            ))}
+          </ForecastSlider>
         </ForecastWrapper>
       )}
     </Container>

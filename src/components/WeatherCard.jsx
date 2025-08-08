@@ -1,7 +1,11 @@
 import styled from "styled-components";
-import { useLiveClock } from "../hooks/useLiveClock";
-import { WeatherIcon } from "./WeatherIcon";
 
+import { useWeather } from "../context/WeatherContext";
+
+import { useLiveClock } from "../hooks/useLiveClock";
+import { useLocalTime } from "../hooks/useLocalTime";
+
+import { WeatherIcon } from "./WeatherIcon";
 import TimeIcon from "../assets/local-time.svg?react";
 
 const Wrapper = styled.div`
@@ -9,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   position: relative;
   width: 100%;
-  padding: 0.8em 0 0.8em 1em;
+  padding: 1em 0 1em 1em;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
@@ -25,18 +29,18 @@ const Item = styled.div`
     margin: 0;
   }
   &:nth-of-type(1) {
-    font-size: 36px;
+    font-size: 32px;
     line-height: 1.2;
     font-weight: 700;
     opacity: 0.5;
   }
   &:nth-of-type(2) {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 300;
     line-height: 1;
   }
   &:nth-of-type(3) {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
   }
 `;
@@ -64,18 +68,22 @@ const TimeWrapper = styled.div`
     margin-right: 0.2em;
   }
   & span {
-    font-size: 20px;
+    font-size: 16px;
     opacity: 0.9;
   }
 `;
 
-export const WeatherCard = ({ weather }) => {
+export const WeatherCard = ({ weather, active }) => {
   const liveTime = useLiveClock();
+  const formatToLocalTime = useLocalTime();
+  const localTime = formatToLocalTime(weather.dt);
+  const current = active === 0 ? true : false;
+  const { localWeatherData } = useWeather();
   return (
     <Wrapper>
       <Item>
         <h5>
-          {weather.name} {weather.sys?.state} {weather.sys.country}
+          {localWeatherData.name} {localWeatherData.country}
         </h5>
       </Item>
       <Item>
@@ -94,7 +102,7 @@ export const WeatherCard = ({ weather }) => {
       </IconWrapper>
       <TimeWrapper>
         <TimeIcon />
-        <span>{liveTime}</span>
+        <span>{current ? liveTime : localTime.time}</span>
       </TimeWrapper>
     </Wrapper>
   );

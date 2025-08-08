@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useLocalTime } from "../hooks/useLocalTime";
+import { useLiveClock } from "../hooks/useLiveClock";
 import { WeatherIcon } from "./WeatherIcon";
 
 const Container = styled.div`
@@ -21,6 +22,11 @@ const CardWrapper = styled.div`
   overflow: visible;
   position: relative;
   margin: 0;
+  cursor: pointer;
+  background: ${(props) =>
+    props.active
+      ? "linear-gradient(45deg,rgba(102, 224, 209, 1) 0%, rgba(87, 159, 241, 1) 100%)"
+      : "transparent"};
 `;
 
 const IconWrapper = styled.div`
@@ -78,15 +84,19 @@ const Date = styled.p`
   margin: 0;
 `;
 
-export const ForecastCard = ({ forecastItem }) => {
+export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
   const formatToLocalTime = useLocalTime();
   const localTime = formatToLocalTime(forecastItem.dt);
+  const liveTime = useLiveClock();
+
+  const isActive = active === index ? true : false;
+  const isCurrent = index === 0 ? true : false;
 
   return (
     <Container>
-      <CardWrapper>
+      <CardWrapper active={isActive} onClick={() => setActive(index)}>
         <TextWrapper>
-          <Time>{localTime.time}</Time>
+          <Time>{isCurrent ? liveTime : localTime.time}</Time>
           <Date>{localTime.date}</Date>
         </TextWrapper>
         <IconWrapper>

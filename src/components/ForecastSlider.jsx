@@ -7,8 +7,6 @@ import styled from "styled-components";
 import LeftArrow from "../assets/left-arrow.svg?react";
 import RightArrow from "../assets/right-arrow.svg?react";
 
-import { ForecastCard } from "./ForecastCard";
-
 const CarouselWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -31,7 +29,7 @@ const CarouselWrapper = styled.div`
   }
 
   .slick-dots li.slick-active button:before {
-    color: #000;
+    color: orange;
   }
 `;
 
@@ -88,7 +86,7 @@ const NextArrow = (props) => {
   );
 };
 
-export const ForecastSlider = ({ forecast }) => {
+export const ForecastSlider = ({ children }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -102,11 +100,12 @@ export const ForecastSlider = ({ forecast }) => {
   return (
     <CarouselWrapper>
       <Slider {...settings}>
-        {forecast.map((item, index) => (
+        {children}
+        {/* {forecast.map((item, index) => (
           <div key={`f${index}`}>
             <ForecastCard forecastItem={item} />
           </div>
-        ))}
+        ))} */}
       </Slider>
     </CarouselWrapper>
   );
