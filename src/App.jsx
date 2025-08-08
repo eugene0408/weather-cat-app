@@ -185,6 +185,7 @@ function App() {
       setLocalWeatherData({
         name: weatherResult.name,
         country: weatherResult.sys.country,
+        dt: weatherResult.dt,
         sunrise: weatherResult.sys.sunrise,
         sunset: weatherResult.sys.sunset,
         timezone: weatherResult.timezone,

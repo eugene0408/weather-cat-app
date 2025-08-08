@@ -13,14 +13,40 @@ const mapWeatherToIcon = (main, isDayTime) => {
 
 export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
   const { localWeatherData } = useWeather();
+  // Current day
+  const todayDate = new Date(
+    (localWeatherData.dt + localWeatherData.timezone) * 1000
+  );
+  // Forecast day
+  const forecastDate = new Date((timestamp + localWeatherData.timezone) * 1000);
 
+  // Return sunrise & sunset timestamps considering days shift
+  const getShiftedSunTimes = (daysShift = 0) => {
+    const SECONDS_IN_DAY = 86400;
+
+    return {
+      sunrise: localWeatherData.sunrise + SECONDS_IN_DAY * daysShift,
+      sunset: localWeatherData.sunset + SECONDS_IN_DAY * daysShift,
+    };
+  };
+
+  // Return diffrence in full days
+  const dayShift = () => {
+    const msPerDay = 24 * 60 * 60 * 1000;
+
+    forecastDate.setHours(0, 0, 0, 0);
+    todayDate.setHours(0, 0, 0, 0);
+
+    const diff = (forecastDate - todayDate) / msPerDay;
+
+    return Math.floor(diff);
+  };
+
+  //Return true if its day hours
   const getIsDayTime = () => {
     if (!localWeatherData.sunrise || !localWeatherData.sunset) return true; //default
-    //return true if its day hours
-    return timestamp >= localWeatherData.sunrise &&
-      timestamp < localWeatherData.sunset
-      ? true
-      : false;
+    const { sunrise, sunset } = getShiftedSunTimes(dayShift());
+    return timestamp >= sunrise && timestamp < sunset ? true : false;
   };
 
   const isDayTime = getIsDayTime();

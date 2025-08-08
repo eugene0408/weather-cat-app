@@ -8,6 +8,7 @@ export const WeatherProvider = ({ children }) => {
   const [localWeatherData, setLocalWeatherData] = useState({
     name: "",
     country: "",
+    dt: null,
     sunrise: null,
     sunset: null,
     timezone: null,
