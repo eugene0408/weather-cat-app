@@ -15,7 +15,8 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 1em 0 1em 1em;
   border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  background: ${(props) => props.theme.colors.cardBackground};
+  box-shadow: ${(props) => props.theme.colors.shadow};
   box-sizing: border-box;
 `;
 const Item = styled.div`
@@ -61,13 +62,16 @@ const TimeWrapper = styled.div`
   bottom: 1em;
   display: flex;
   align-items: center;
-  & svg {
+  svg {
     height: 1em;
     width: 1em;
     opacity: 0.3;
     margin-right: 0.2em;
   }
-  & span {
+  svg path {
+    fill: ${(props) => props.theme.colors.text};
+  }
+  span {
     font-size: 16px;
     opacity: 0.9;
   }

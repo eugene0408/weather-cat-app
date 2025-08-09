@@ -25,11 +25,14 @@ const CarouselWrapper = styled.div`
   }
 
   .slick-dots li button:before {
-    color: #999;
+    color: ${(props) => props.theme.colors.text};
+    opacity: 0.2;
+    transition: all 0.3s ease;
   }
 
   .slick-dots li.slick-active button:before {
-    color: orange;
+    color: ${(props) => props.theme.colors.accent};
+    opacity: 1;
   }
 `;
 
@@ -50,9 +53,12 @@ const ArrowButton = styled.button`
     content: "";
     width: 0;
   }
-  & svg {
+  svg {
     height: 100%;
     width: 100%;
+  }
+  svg path {
+    fill: ${(props) => props.theme.colors.text};
   }
   /* style disabled button */
   &.slick-disabled {
@@ -65,7 +71,7 @@ const PrevArrow = (props) => {
   const { onClick, className } = props;
   return (
     <ArrowButton
-      style={{ left: "-30px" }}
+      style={{ left: "-25px" }}
       className={className}
       onClick={onClick}
     >
@@ -77,7 +83,7 @@ const NextArrow = (props) => {
   const { onClick, className } = props;
   return (
     <ArrowButton
-      style={{ right: "-30px" }}
+      style={{ right: "-25px" }}
       className={className}
       onClick={onClick}
     >
@@ -99,14 +105,7 @@ export const ForecastSlider = ({ children }) => {
 
   return (
     <CarouselWrapper>
-      <Slider {...settings}>
-        {children}
-        {/* {forecast.map((item, index) => (
-          <div key={`f${index}`}>
-            <ForecastCard forecastItem={item} />
-          </div>
-        ))} */}
-      </Slider>
+      <Slider {...settings}>{children}</Slider>
     </CarouselWrapper>
   );
 };

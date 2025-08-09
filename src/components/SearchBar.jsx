@@ -15,11 +15,13 @@ const Input = styled.input`
   max-width: 100%;
   border: none;
   border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: ${(props) => props.theme.colors.shadow};
   font-size: 18px;
   font-weight: 400;
   padding: 0 2.5em;
   box-sizing: border-box;
+  color: ${(props) => props.theme.colors.text};
+  background: ${(props) => props.theme.colors.cardBackground};
 
   &:focus,
   &:hover {
@@ -47,6 +49,7 @@ const ActionButton = styled.button`
   justify-content: center;
   align-items: center;
   padding: 0.5em;
+  background-color: ${(props) => props.theme.colors.accent};
   & svg {
     height: 1.7em;
     width: 1.7em;

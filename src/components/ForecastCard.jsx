@@ -18,15 +18,15 @@ const CardWrapper = styled.div`
   height: 220px;
   width: var(--width);
   border-radius: calc(var(--width) / 2);
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: ${(props) => props.theme.colors.cardShadow};
   overflow: visible;
   position: relative;
   margin: 0;
   cursor: pointer;
   background: ${(props) =>
-    props.active
-      ? "linear-gradient(45deg,rgba(102, 224, 209, 1) 0%, rgba(87, 159, 241, 1) 100%)"
-      : "transparent"};
+    props.$active
+      ? props.theme.colors.activeCardBackground
+      : props.theme.colors.cardBackground};
 `;
 
 const IconWrapper = styled.div`
@@ -35,9 +35,6 @@ const IconWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: auto;
-  /* position: absolute;
-  left: 0;
-  top: -20%; */
 `;
 
 const TextWrapper = styled.div`
@@ -94,7 +91,7 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
 
   return (
     <Container>
-      <CardWrapper active={isActive} onClick={() => setActive(index)}>
+      <CardWrapper $active={isActive} onClick={() => setActive(index)}>
         <TextWrapper>
           <Time>{isCurrent ? liveTime : localTime.time}</Time>
           <Date>{localTime.date}</Date>

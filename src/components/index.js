@@ -6,6 +6,7 @@ import { WeatherCard } from "./WeatherCard";
 import { CatImage } from "./CatImage";
 import { UserSuggestions } from "./UserSuggestions";
 import { ForecastSlider } from "./ForecastSlider";
+import { ThemeToggle } from "./ThemeToggle";
 
 export {
   SearchBar,
@@ -16,4 +17,5 @@ export {
   CatImage,
   UserSuggestions,
   ForecastSlider,
+  ThemeToggle,
 };

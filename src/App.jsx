@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import useLocalStorage from "use-local-storage";
 
 import {
@@ -10,7 +10,10 @@ import {
 } from "./services/weatherApi";
 
 import { useWeather } from "./context/WeatherContext";
+import { useTheme } from "./context/ThemeContext";
 import { useIsMobile } from "./hooks/useIsMobile";
+
+import { lightTheme, darkTheme } from "./themes";
 
 import {
   SearchBar,
@@ -20,6 +23,7 @@ import {
   ForecastSlider,
   ForecastCard,
   CatImage,
+  ThemeToggle,
 } from "./components";
 
 const Container = styled.div`
@@ -35,6 +39,8 @@ const Container = styled.div`
   height: 100dvh;
   max-width: 768px;
   /* min-height: 100vh; */
+  background: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.text};
 
   @media (min-width: 420px) {
     max-width: 356px;
@@ -69,14 +75,14 @@ const SearchWrapper = styled.div`
   box-sizing: border-box;
   transition: all 0.3s ease;
   ${(props) =>
-    props.position === "top" &&
+    props.$position === "top" &&
     `
       left: 0;
       top: 1rem;
       transform: none;
     `}
   ${(props) =>
-    props.position === "bottom" &&
+    props.$position === "bottom" &&
     `
       top: auto;
       left: 0;
@@ -95,7 +101,9 @@ const CatImageWrapper = styled.section`
   display: flex;
   justify-content: center;
   margin-top: -3rem;
+  width: 100%;
   z-index: 2;
+  position: relative;
 `;
 
 const ForecastWrapper = styled.section`
@@ -217,70 +225,76 @@ function App() {
   const activeWeatherData =
     activeCard === 0 ? weather : forecast[activeCard - 1];
 
+  const { isDark } = useTheme();
+  const currentTheme = isDark ? darkTheme : lightTheme;
+
   return (
-    <Container>
-      <SearchWrapper position={searchPosition} ref={searchRef}>
-        <SearchBar
-          city={city}
-          setCity={setCity}
-          onSearch={handleSearch}
-          handleFocus={handleInputFocus}
-        />
-        {cityNotFound && <p>City not found, try to input a part of name</p>}
-
-        {suggestions !== undefined && suggestions.length > 0 && (
-          <Suggestions
-            suggestions={suggestions}
-            handleClick={handleSuggestionClick}
+    <ThemeProvider theme={currentTheme}>
+      <Container>
+        <SearchWrapper $position={searchPosition} ref={searchRef}>
+          <SearchBar
+            city={city}
+            setCity={setCity}
+            onSearch={handleSearch}
+            handleFocus={handleInputFocus}
           />
+          {cityNotFound && <p>City not found, try to input a part of name</p>}
+
+          {suggestions !== undefined && suggestions.length > 0 && (
+            <Suggestions
+              suggestions={suggestions}
+              handleClick={handleSuggestionClick}
+            />
+          )}
+          {!weather && (
+            <UserSuggestions
+              userSuggestions={userSuggestions}
+              handleClick={handleSuggestionClick}
+            />
+          )}
+        </SearchWrapper>
+
+        {weather && (
+          <WeatherWrapper>
+            <WeatherCard weather={activeWeatherData} active={activeCard} />
+          </WeatherWrapper>
         )}
-        {!weather && (
-          <UserSuggestions
-            userSuggestions={userSuggestions}
-            handleClick={handleSuggestionClick}
-          />
+
+        {weather && (
+          <CatImageWrapper>
+            <CatImage weather={activeWeatherData} size={"280px"} />
+            <ThemeToggle />
+          </CatImageWrapper>
         )}
-      </SearchWrapper>
 
-      {weather && (
-        <WeatherWrapper>
-          <WeatherCard weather={activeWeatherData} active={activeCard} />
-        </WeatherWrapper>
-      )}
-
-      {weather && (
-        <CatImageWrapper>
-          <CatImage weather={activeWeatherData} size={"280px"} />
-        </CatImageWrapper>
-      )}
-
-      {weather && forecast && (
-        <ForecastWrapper>
-          <ForecastSlider>
-            {/* First item for current weather */}
-            <div key={"f0"}>
-              <ForecastCard
-                forecastItem={weather}
-                active={activeCard}
-                setActive={setActiveCard}
-                index={0}
-              />
-            </div>
-            {/* Forecast items */}
-            {forecast.map((item, index) => (
-              <div key={`f${index + 1}`}>
+        {weather && forecast && (
+          <ForecastWrapper>
+            <ForecastSlider>
+              {/* First item for current weather */}
+              <div key={"f0"}>
                 <ForecastCard
-                  forecastItem={item}
+                  forecastItem={weather}
                   active={activeCard}
                   setActive={setActiveCard}
-                  index={index + 1}
+                  index={0}
                 />
               </div>
-            ))}
-          </ForecastSlider>
-        </ForecastWrapper>
-      )}
-    </Container>
+              {/* Forecast items */}
+              {forecast.map((item, index) => (
+                <div key={`f${index + 1}`}>
+                  <ForecastCard
+                    forecastItem={item}
+                    active={activeCard}
+                    setActive={setActiveCard}
+                    index={index + 1}
+                  />
+                </div>
+              ))}
+            </ForecastSlider>
+          </ForecastWrapper>
+        )}
+      </Container>
+    </ThemeProvider>
   );
 }
 
