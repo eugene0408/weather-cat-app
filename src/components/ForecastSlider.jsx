@@ -97,10 +97,15 @@ export const ForecastSlider = ({ children }) => {
     dots: true,
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToShow: 8,
+    slidesToScroll: 8,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    responsive: [
+      { breakpoint: 576, settings: { slidesToShow: 4, slidesToScroll: 4 } },
+      { breakpoint: 768, settings: { slidesToShow: 6, slidesToScroll: 6 } },
+      { breakpoint: 992, settings: { slidesToShow: 8, slidesToScroll: 8 } },
+    ],
   };
 
   return (

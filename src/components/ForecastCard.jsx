@@ -27,6 +27,14 @@ const CardWrapper = styled.div`
     props.$active
       ? props.theme.colors.activeCardBackground
       : props.theme.colors.cardBackground};
+  @media (hover: hover) {
+    &:hover {
+      background: ${(props) =>
+        props.active
+          ? props.theme.colors.activeCardBackground
+          : props.theme.colors.hoverCardBackground};
+    }
+  }
 `;
 
 const IconWrapper = styled.div`

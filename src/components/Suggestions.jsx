@@ -19,8 +19,9 @@ const ItemButton = styled.button`
   font-size: 16px;
   line-height: 1.5;
   padding: 0.3em 0.5em;
+  color: ${(props) => props.theme.colors.text};
   &:hover {
-    background: orange;
+    background: ${(props) => props.theme.colors.accent};
   }
   & span {
     opacity: 0.5;

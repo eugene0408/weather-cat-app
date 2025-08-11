@@ -5,6 +5,8 @@ export const lightTheme = {
     cardBackground: "#fff",
     activeCardBackground:
       "linear-gradient(45deg,rgba(102, 224, 209, 1) 0%, rgba(87, 159, 241, 1) 100%)",
+    hoverCardBackground:
+      "linear-gradient(45deg,rgba(102, 224, 209, 0.3) 0%, rgba(87, 159, 241, 0.3) 100%)",
     text: "#000000",
     shadow: "2px 2px 10px rgba(0, 0, 0, 0.25)",
     cardShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",

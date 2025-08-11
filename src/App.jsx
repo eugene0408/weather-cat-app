@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import "./App.css";
 import styled, { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./GlobalStyles";
 import useLocalStorage from "use-local-storage";
 
 import {
@@ -39,7 +39,6 @@ const Container = styled.div`
   height: 100dvh;
   max-width: 768px;
   /* min-height: 100vh; */
-  background: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.text};
 
   @media (min-width: 420px) {
@@ -50,16 +49,17 @@ const Container = styled.div`
   }
   @media (min-width: 768px) {
     max-width: 720px;
+    padding-top: 8rem;
   }
-  @media (min-width: 992px) {
+  /* @media (min-width: 992px) {
     max-width: 960px;
   }
   @media (min-width: 1200px) {
-    max-width: 1140px;
+    max-width: 960px;
   }
   @media (min-width: 1400px) {
-    max-width: 1320px;
-  }
+    max-width: 960px;
+  } */
 `;
 
 const SearchWrapper = styled.div`
@@ -89,12 +89,22 @@ const SearchWrapper = styled.div`
       bottom: 10px;
       transform: none;
     `}
+  @media (min-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const WeatherWrapper = styled.main`
   margin-top: 1.5rem;
   width: 100%;
   z-index: 1;
+  @media (min-width: 768px) {
+    width: 80%;
+    align-self: flex-start;
+  }
+  @media (min-width: 992px) {
+    width: 60%;
+  }
 `;
 
 const CatImageWrapper = styled.section`
@@ -151,7 +161,7 @@ function App() {
 
   const handleInputFocus = () => {
     setCity(""); //clear input
-    if (isMobile && weather) {
+    if (weather) {
       setWeather(null); //clear weather
     }
     setTimeout(() => {
@@ -230,6 +240,7 @@ function App() {
 
   return (
     <ThemeProvider theme={currentTheme}>
+      <GlobalStyles />
       <Container>
         <SearchWrapper $position={searchPosition} ref={searchRef}>
           <SearchBar
