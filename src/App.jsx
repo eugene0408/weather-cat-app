@@ -3,6 +3,9 @@ import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./GlobalStyles";
 import useLocalStorage from "use-local-storage";
 
+import defaultSuggestions from "./data/suggestions.json";
+import demoData from "./data/demo.json";
+
 import {
   getWeatherByCity,
   searchSimilarCities,
@@ -125,16 +128,6 @@ const ForecastWrapper = styled.section`
 `;
 
 function App() {
-  const defaultSuggestions = [
-    "London",
-    "Paris",
-    "Kyiv",
-    "New York",
-    "Sydney",
-    "Los Angeles",
-    "Tokyo",
-    "Rio de Janeiro",
-  ];
   const searchRef = useRef(null);
 
   const [city, setCity] = useState("");
@@ -218,6 +211,24 @@ function App() {
       setCityNotFound(true);
     }
   };
+
+  const demoModeHandler = () => {
+    setCityNotFound(false);
+    setCity("Demo Mode");
+    const demoWeather = demoData.weather;
+    setWeather(demoWeather);
+    setLocalWeatherData({
+      name: demoWeather.name,
+      country: null,
+      dt: demoWeather.dt,
+      sunrise: demoWeather.sys.sunrise,
+      sunset: demoWeather.sys.sunset,
+      timezone: demoWeather.timezone,
+    });
+    const demoForecast = demoData.forecast;
+    setForecast(demoForecast);
+    setSuggestions([]);
+  };
   // Searchbar positioning
   useEffect(() => {
     if (!weather) {
@@ -261,6 +272,7 @@ function App() {
             <UserSuggestions
               userSuggestions={userSuggestions}
               handleClick={handleSuggestionClick}
+              demoClick={demoModeHandler}
             />
           )}
         </SearchWrapper>

@@ -1,0 +1,59 @@
+{
+  "weather": {
+    "name": "Hogwards",
+    "dt": 1735711200,
+    "timezone": 3600,
+    "sys": {
+      "sunrise": 1735709400,
+      "sunset": 1735768800
+    },
+    "main": {
+      "temp": 25
+    },
+    "weather": [{ "main": "Clear", "description": "clear" }]
+  },
+  "forecast": [
+    {
+      "dt": 1735722000,
+      "main": {
+        "temp": 20
+      },
+      "weather": [{ "main": "Clear", "description": "clear" }]
+    },
+    {
+      "dt": 1735732800,
+      "main": {
+        "temp": 22
+      },
+      "weather": [{ "main": "Clouds", "description": "clouds" }]
+    },
+    {
+      "dt": 1735743600,
+      "main": {
+        "temp": 18
+      },
+      "weather": [{ "main": "Rain", "description": "rain" }]
+    },
+    {
+      "dt": 1735754400,
+      "main": {
+        "temp": 18
+      },
+      "weather": [{ "main": "Thunderstorm", "description": "thunder storm" }]
+    },
+    {
+      "dt": 1735765200,
+      "main": {
+        "temp": -3
+      },
+      "weather": [{ "main": "Snow", "description": "light snow" }]
+    },
+    {
+      "dt": 1735772400,
+      "main": {
+        "temp": 10
+      },
+      "weather": [{ "main": "Clear", "description": "clear" }]
+    }
+  ]
+}

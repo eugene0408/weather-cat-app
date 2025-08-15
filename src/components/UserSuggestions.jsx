@@ -23,7 +23,11 @@ const ItemButton = styled.button`
   cursor: pointer;
 `;
 
-export const UserSuggestions = ({ userSuggestions, handleClick }) => {
+export const UserSuggestions = ({
+  userSuggestions,
+  handleClick,
+  demoClick,
+}) => {
   return (
     <Wrapper>
       {userSuggestions.map((item, index) => (
@@ -31,6 +35,9 @@ export const UserSuggestions = ({ userSuggestions, handleClick }) => {
           {item}
         </ItemButton>
       ))}
+      <ItemButton onClick={() => demoClick()} key={`us999`}>
+        Demo Mode
+      </ItemButton>
     </Wrapper>
   );
 };
