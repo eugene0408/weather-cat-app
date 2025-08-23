@@ -12,6 +12,7 @@ export const WeatherProvider = ({ children }) => {
     sunrise: null,
     sunset: null,
     timezone: null,
+    isDemo: false,
   });
   return (
     <WeatherContext.Provider value={{ localWeatherData, setLocalWeatherData }}>

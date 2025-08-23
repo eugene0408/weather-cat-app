@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useWeather } from "../context/WeatherContext";
 import { useLocalTime } from "../hooks/useLocalTime";
 import { useLiveClock } from "../hooks/useLiveClock";
 import { WeatherIcon } from "./WeatherIcon";
@@ -97,11 +98,15 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
   const isActive = active === index ? true : false;
   const isCurrent = index === 0 ? true : false;
 
+  const { localWeatherData } = useWeather();
+  const isDemo = localWeatherData.isDemo;
+
   return (
     <Container>
       <CardWrapper $active={isActive} onClick={() => setActive(index)}>
         <TextWrapper>
-          <Time>{isCurrent ? liveTime : localTime.time}</Time>
+          {/* Use live clock for current (first) item or use static time for demo mode & forecast items */}
+          <Time>{isCurrent && !isDemo ? liveTime : localTime.time}</Time>
           <Date>{localTime.date}</Date>
         </TextWrapper>
         <IconWrapper>

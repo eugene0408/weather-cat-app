@@ -200,6 +200,7 @@ function App() {
         sunrise: weatherResult.sys.sunrise,
         sunset: weatherResult.sys.sunset,
         timezone: weatherResult.timezone,
+        isDemo: false,
       });
 
       const forecastResult = await getForecastByCity(suggestedName);
@@ -224,6 +225,7 @@ function App() {
       sunrise: demoWeather.sys.sunrise,
       sunset: demoWeather.sys.sunset,
       timezone: demoWeather.timezone,
+      isDemo: true,
     });
     const demoForecast = demoData.forecast;
     setForecast(demoForecast);

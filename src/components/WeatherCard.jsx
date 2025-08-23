@@ -83,6 +83,7 @@ export const WeatherCard = ({ weather, active }) => {
   const localTime = formatToLocalTime(weather.dt);
   const current = active === 0 ? true : false;
   const { localWeatherData } = useWeather();
+  const isDemo = localWeatherData.isDemo;
   return (
     <Wrapper>
       <Item>
@@ -106,7 +107,8 @@ export const WeatherCard = ({ weather, active }) => {
       </IconWrapper>
       <TimeWrapper>
         <TimeIcon />
-        <span>{current ? liveTime : localTime.time}</span>
+        {/* Use live clock for current weather or use static time for demo mode & forecast items */}
+        <span>{current && !isDemo ? liveTime : localTime.time}</span>
       </TimeWrapper>
     </Wrapper>
   );
