@@ -51,7 +51,7 @@
     {
       "dt": 1735772400,
       "main": {
-        "temp": 10
+        "temp": -10
       },
       "weather": [{ "main": "Clear", "description": "clear" }]
     }
