@@ -39,24 +39,33 @@
       "main": {
         "temp": 15
       },
-      "weather": [{ "main": "Rain", "description": "rain" }]
+      "weather": [{ "main": "Rain", "description": "shower rain" }]
     },
     {
       "dt": 1735765200,
       "main": {
-        "temp": -3
+        "temp": 13
       },
-      "weather": [{ "main": "Snow", "description": "light snow" }]
+      "weather": [
+        { "main": "Thunderstorm", "description": "heavy thunderstorm" }
+      ]
     },
     {
       "dt": 1735772400,
       "main": {
-        "temp": -10
+        "temp": -2
       },
-      "weather": [{ "main": "Clear", "description": "clear" }]
+      "weather": [{ "main": "Clouds", "description": "few clouds" }]
     },
     {
       "dt": 1735779600,
+      "main": {
+        "temp": -10
+      },
+      "weather": [{ "main": "Snow", "description": "light snow" }]
+    },
+    {
+      "dt": 1735786800,
       "main": {
         "temp": -15
       },

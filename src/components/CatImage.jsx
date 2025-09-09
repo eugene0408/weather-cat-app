@@ -3,11 +3,13 @@ const mapCatImage = (weather) => {
   const main = weather.weather[0].main;
 
   switch (true) {
-    case ["Rain", "Drizzle", "Thunderstorm"].includes(main):
+    case ["Rain", "Drizzle"].includes(main):
       return "rain";
+    case main === "Thunderstorm":
+      return "storm";
     case ["Mist", "Smoke", "Haze", "Fog"].includes(main):
       return "fog";
-    case main === "Clouds":
+    case main === "Clouds" && temp > 0:
       return "cloudy";
     case temp < 0 && temp > -5:
       return "cold";
