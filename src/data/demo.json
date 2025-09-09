@@ -8,9 +8,9 @@
       "sunset": 1735768800
     },
     "main": {
-      "temp": 25
+      "temp": 16
     },
-    "weather": [{ "main": "Clear", "description": "clear" }]
+    "weather": [{ "main": "Mist", "description": "mist" }]
   },
   "forecast": [
     {
@@ -23,23 +23,23 @@
     {
       "dt": 1735732800,
       "main": {
-        "temp": 22
+        "temp": 25
       },
-      "weather": [{ "main": "Clouds", "description": "clouds" }]
+      "weather": [{ "main": "Clear", "description": "clear" }]
     },
     {
       "dt": 1735743600,
       "main": {
         "temp": 18
       },
-      "weather": [{ "main": "Rain", "description": "rain" }]
+      "weather": [{ "main": "Clouds", "description": "broken clouds" }]
     },
     {
       "dt": 1735754400,
       "main": {
-        "temp": 18
+        "temp": 15
       },
-      "weather": [{ "main": "Mist", "description": "mist" }]
+      "weather": [{ "main": "Rain", "description": "rain" }]
     },
     {
       "dt": 1735765200,
@@ -52,6 +52,13 @@
       "dt": 1735772400,
       "main": {
         "temp": -10
+      },
+      "weather": [{ "main": "Clear", "description": "clear" }]
+    },
+    {
+      "dt": 1735779600,
+      "main": {
+        "temp": -15
       },
       "weather": [{ "main": "Clear", "description": "clear" }]
     }
