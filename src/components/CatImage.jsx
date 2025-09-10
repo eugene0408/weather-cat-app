@@ -31,7 +31,7 @@ export const CatImage = ({ weather, size }) => {
   return (
     <img
       src={`images/${catImage}.png`}
-      alt={`${catImage}-cat`}
+      alt={`${catImage}-weather-cat`}
       style={{ height: size }}
     />
   );

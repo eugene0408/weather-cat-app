@@ -18,14 +18,14 @@
       "main": {
         "temp": 20
       },
-      "weather": [{ "main": "Clear", "description": "clear" }]
+      "weather": [{ "main": "Clear", "description": "clear sky" }]
     },
     {
       "dt": 1735732800,
       "main": {
         "temp": 25
       },
-      "weather": [{ "main": "Clear", "description": "clear" }]
+      "weather": [{ "main": "Clear", "description": "clear sky" }]
     },
     {
       "dt": 1735743600,
@@ -47,7 +47,10 @@
         "temp": 13
       },
       "weather": [
-        { "main": "Thunderstorm", "description": "heavy thunderstorm" }
+        {
+          "main": "Thunderstorm",
+          "description": "thunderstorm with light rain"
+        }
       ]
     },
     {
@@ -55,7 +58,7 @@
       "main": {
         "temp": -2
       },
-      "weather": [{ "main": "Clouds", "description": "few clouds" }]
+      "weather": [{ "main": "Clouds", "description": "overcast clouds" }]
     },
     {
       "dt": 1735779600,
@@ -69,7 +72,7 @@
       "main": {
         "temp": -15
       },
-      "weather": [{ "main": "Clear", "description": "clear" }]
+      "weather": [{ "main": "Clear", "description": "clear sky" }]
     }
   ]
 }

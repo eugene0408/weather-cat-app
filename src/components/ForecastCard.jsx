@@ -101,6 +101,27 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
   const { localWeatherData } = useWeather();
   const isDemo = localWeatherData.isDemo;
 
+  const main = forecastItem.weather[0].main;
+  const description = forecastItem.weather[0].description;
+  const temperature = Math.round(forecastItem.main.temp);
+  const timestamp = forecastItem.dt;
+  const fallbackImgUrl = `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`;
+
+  // Slice long words and text of description
+  const truncateWords = (text) => {
+    const truncatedWords = text
+      .split(" ")
+      .map((word) => {
+        if (word.length > 8) {
+          return word.slice(0, 8) + ".";
+        }
+        return word;
+      })
+      .join(" ");
+    if (truncatedWords.length > 16) return truncatedWords.slice(0, 16) + "...";
+    return truncatedWords;
+  };
+
   return (
     <Container>
       <CardWrapper $active={isActive} onClick={() => setActive(index)}>
@@ -111,15 +132,15 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
         </TextWrapper>
         <IconWrapper>
           <WeatherIcon
-            main={forecastItem.weather[0].main}
+            main={main}
             size="100%"
-            timestamp={forecastItem.dt}
-            fallback={`https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`}
+            timestamp={timestamp}
+            fallback={fallbackImgUrl}
           />
         </IconWrapper>
         <TextWrapper>
-          <Weather>{forecastItem.weather[0].description}</Weather>
-          <Temperature>{Math.round(forecastItem.main.temp)}°C</Temperature>
+          <Weather>{truncateWords(description)}</Weather>
+          <Temperature>{temperature}°C</Temperature>
         </TextWrapper>
       </CardWrapper>
     </Container>
