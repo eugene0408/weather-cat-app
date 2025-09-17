@@ -7,6 +7,9 @@ const Wrapper = styled.div`
   width: 100%;
   height: 50px;
   position: relative;
+  @media (min-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Input = styled.input`

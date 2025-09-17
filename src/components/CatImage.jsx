@@ -26,13 +26,13 @@ const mapCatImage = (weather) => {
   }
 };
 
-export const CatImage = ({ weather, size }) => {
+export const CatImage = ({ weather }) => {
   const catImage = mapCatImage(weather);
   return (
     <img
       src={`images/${catImage}.png`}
       alt={`${catImage}-weather-cat`}
-      style={{ height: size }}
+      style={{ height: "100%" }}
     />
   );
 };

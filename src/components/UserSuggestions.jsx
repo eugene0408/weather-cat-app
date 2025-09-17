@@ -7,6 +7,9 @@ const Wrapper = styled.div`
   gap: 0.2em;
   width: 100%;
   margin-top: 1rem;
+  @media (min-width: 768px) {
+    width: 80%;
+  }
 `;
 const ItemButton = styled.button`
   display: flex;

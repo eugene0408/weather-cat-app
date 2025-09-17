@@ -18,6 +18,9 @@ const Wrapper = styled.div`
   background: ${(props) => props.theme.colors.cardBackground};
   box-shadow: ${(props) => props.theme.colors.shadow};
   box-sizing: border-box;
+  @media (min-width: 768px) {
+    padding: 1em 1em 1em 4.5em;
+  }
 `;
 const Item = styled.div`
   display: flex;

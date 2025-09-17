@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./GlobalStyles";
 import useLocalStorage from "use-local-storage";
 
@@ -14,7 +14,7 @@ import {
 
 import { useWeather } from "./context/WeatherContext";
 import { useTheme } from "./context/ThemeContext";
-import { useIsMobile } from "./hooks/useIsMobile";
+// import { useIsMobile } from "./hooks/useIsMobile";
 
 import { lightTheme, darkTheme } from "./themes";
 
@@ -29,103 +29,14 @@ import {
   ThemeToggle,
 } from "./components";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-  gap: 16px;
-  padding: 16px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  height: 100dvh;
-  max-width: 768px;
-  /* min-height: 100vh; */
-  color: ${(props) => props.theme.colors.text};
-
-  @media (min-width: 420px) {
-    max-width: 356px;
-  }
-  @media (min-width: 576px) {
-    max-width: 540px;
-  }
-  @media (min-width: 768px) {
-    max-width: 720px;
-    padding-top: 8rem;
-  }
-  /* @media (min-width: 992px) {
-    max-width: 960px;
-  }
-  @media (min-width: 1200px) {
-    max-width: 960px;
-  }
-  @media (min-width: 1400px) {
-    max-width: 960px;
-  } */
-`;
-
-const SearchWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  padding: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  ${(props) =>
-    props.$position === "top" &&
-    `
-      left: 0;
-      top: 1rem;
-      transform: none;
-    `}
-  ${(props) =>
-    props.$position === "bottom" &&
-    `
-      top: auto;
-      left: 0;
-      bottom: 10px;
-      transform: none;
-    `}
-  @media (min-width: 768px) {
-    width: 80%;
-  }
-`;
-
-const WeatherWrapper = styled.main`
-  margin-top: 1.5rem;
-  width: 100%;
-  z-index: 1;
-  @media (min-width: 768px) {
-    width: 80%;
-    align-self: flex-start;
-  }
-  @media (min-width: 992px) {
-    width: 60%;
-  }
-`;
-
-const CatImageWrapper = styled.section`
-  display: flex;
-  justify-content: center;
-  margin-top: -3rem;
-  width: 100%;
-  z-index: 2;
-  position: relative;
-`;
-
-const ForecastWrapper = styled.section`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: -2rem;
-  width: 95%;
-`;
+import {
+  Container,
+  SearchWrapper,
+  MainWrapper,
+  WeatherWrapper,
+  CatImageWrapper,
+  ForecastWrapper,
+} from "./App.styles";
 
 function App() {
   const searchRef = useRef(null);
@@ -135,9 +46,8 @@ function App() {
   const [forecast, setForecast] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [cityNotFound, setCityNotFound] = useState(false);
-  const [searchPosition, setSearchPosition] = useState("center");
   const [activeCard, setActiveCard] = useState(0);
-  // const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(true);
 
   const [userSuggestions, setUserSuggestions] = useLocalStorage(
     "cities",
@@ -150,10 +60,11 @@ function App() {
   };
 
   const { setLocalWeatherData } = useWeather();
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
 
   const handleInputFocus = () => {
     setCity(""); //clear input
+    setIsInputFocused(true);
     if (weather) {
       setWeather(null); //clear weather
     }
@@ -190,6 +101,7 @@ function App() {
     setCityNotFound(false);
     setCity(suggestedName);
     saveUserCity(suggestedName);
+    setIsInputFocused(false);
     try {
       const weatherResult = await getWeatherByCity(suggestedName);
       setWeather(weatherResult);
@@ -215,6 +127,7 @@ function App() {
 
   const demoModeHandler = () => {
     setCityNotFound(false);
+    setIsInputFocused(false);
     setCity("Demo Mode");
     const demoWeather = demoData.weather;
     setWeather(demoWeather);
@@ -231,14 +144,6 @@ function App() {
     setForecast(demoForecast);
     setSuggestions([]);
   };
-  // Searchbar positioning
-  useEffect(() => {
-    if (!weather) {
-      setSearchPosition("center");
-    } else {
-      setSearchPosition(isMobile ? "bottom" : "top");
-    }
-  }, [weather, isMobile]);
 
   // Active card reset
   useEffect(() => {
@@ -255,7 +160,7 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <Container>
-        <SearchWrapper $position={searchPosition} ref={searchRef}>
+        <SearchWrapper $isActive={isInputFocused} ref={searchRef}>
           <SearchBar
             city={city}
             setCity={setCity}
@@ -280,16 +185,15 @@ function App() {
         </SearchWrapper>
 
         {weather && (
-          <WeatherWrapper>
-            <WeatherCard weather={activeWeatherData} active={activeCard} />
-          </WeatherWrapper>
-        )}
-
-        {weather && (
-          <CatImageWrapper>
-            <CatImage weather={activeWeatherData} size={"280px"} />
-            <ThemeToggle />
-          </CatImageWrapper>
+          <MainWrapper>
+            <WeatherWrapper>
+              <WeatherCard weather={activeWeatherData} active={activeCard} />
+            </WeatherWrapper>
+            <CatImageWrapper>
+              <CatImage weather={activeWeatherData} />
+              <ThemeToggle />
+            </CatImageWrapper>
+          </MainWrapper>
         )}
 
         {weather && forecast && (
