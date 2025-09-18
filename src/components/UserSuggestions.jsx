@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin-top: 1rem;
   @media (min-width: 768px) {
-    width: 80%;
+    /* width: 80%; */
   }
 `;
 const ItemButton = styled.button`

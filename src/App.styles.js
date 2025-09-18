@@ -53,7 +53,7 @@ export const SearchWrapper = styled.div`
   @media (min-width: 768px) {
     top: ${(props) => (props.$isActive ? "50%" : "1em")};
     bottom: auto;
-    /* align-items: flex-start; */
+    align-items: flex-end;
   }
 `;
 
@@ -69,6 +69,7 @@ export const MainWrapper = styled.main`
     flex-direction: row;
     justify-content: flex-end;
     height: 340px;
+    margin-top: 4em;
   }
 `;
 
@@ -111,6 +112,6 @@ export const ForecastWrapper = styled.section`
   margin-top: -2rem;
   width: 95%;
   @media (min-width: 768px) {
-    /* margin-top: 5rem; */
+    width: 100%;
   }
 `;

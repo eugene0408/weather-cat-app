@@ -6,17 +6,10 @@ export const useIsMobile = () => {
   useEffect(() => {
     const checkIsMobile = () => {
       const isMobileView = window.innerWidth <= 768;
-      const isMobileAgent =
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-      setIsMobile(isMobileView || isMobileAgent);
+      setIsMobile(isMobileView);
     };
-
     checkIsMobile();
-
     window.addEventListener("resize", checkIsMobile);
-
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 

@@ -34,6 +34,11 @@ const CarouselWrapper = styled.div`
     color: ${(props) => props.theme.colors.accent};
     opacity: 1;
   }
+  @media (min-width: 768px) {
+    .slick-list {
+      margin: 0 0;
+    }
+  }
 `;
 
 const ArrowButton = styled.button`
@@ -67,28 +72,37 @@ const ArrowButton = styled.button`
   }
 `;
 
+const ArrowButtonLeft = styled(ArrowButton)`
+  left: -25px;
+  @media (min-width: 768px) {
+    left: -35px;
+    height: 32px;
+    width: 32px;
+  }
+`;
+const ArrowButtonRight = styled(ArrowButton)`
+  right: -25px;
+  @media (min-width: 768px) {
+    right: -35px;
+    height: 32px;
+    width: 32px;
+  }
+`;
+
 const PrevArrow = (props) => {
   const { onClick, className } = props;
   return (
-    <ArrowButton
-      style={{ left: "-25px" }}
-      className={className}
-      onClick={onClick}
-    >
+    <ArrowButtonLeft className={className} onClick={onClick}>
       <LeftArrow />
-    </ArrowButton>
+    </ArrowButtonLeft>
   );
 };
 const NextArrow = (props) => {
   const { onClick, className } = props;
   return (
-    <ArrowButton
-      style={{ right: "-25px" }}
-      className={className}
-      onClick={onClick}
-    >
+    <ArrowButtonRight className={className} onClick={onClick}>
       <RightArrow />
-    </ArrowButton>
+    </ArrowButtonRight>
   );
 };
 
@@ -104,7 +118,6 @@ export const ForecastSlider = ({ children }) => {
     responsive: [
       { breakpoint: 576, settings: { slidesToShow: 4, slidesToScroll: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 6, slidesToScroll: 6 } },
-      { breakpoint: 992, settings: { slidesToShow: 8, slidesToScroll: 8 } },
     ],
   };
 

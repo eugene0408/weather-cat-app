@@ -14,7 +14,7 @@ import {
 
 import { useWeather } from "./context/WeatherContext";
 import { useTheme } from "./context/ThemeContext";
-// import { useIsMobile } from "./hooks/useIsMobile";
+import { useIsMobile } from "./hooks/useIsMobile";
 
 import { lightTheme, darkTheme } from "./themes";
 
@@ -60,7 +60,7 @@ function App() {
   };
 
   const { setLocalWeatherData } = useWeather();
-  // const isMobile = useIsMobile();
+  const isMobile = useIsMobile();
 
   const handleInputFocus = () => {
     setCity(""); //clear input
@@ -175,7 +175,7 @@ function App() {
               handleClick={handleSuggestionClick}
             />
           )}
-          {!weather && (
+          {(!weather || !isMobile) && (
             <UserSuggestions
               userSuggestions={userSuggestions}
               handleClick={handleSuggestionClick}

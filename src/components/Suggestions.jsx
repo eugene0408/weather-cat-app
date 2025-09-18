@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
   margin-top: 1em;
   @media (min-width: 768px) {
-    width: 80%;
+    /* width: 80%; */
   }
 `;
 
