@@ -1,14 +1,22 @@
 import { useWeather } from "../context/WeatherContext";
 
+import sunny from "../assets/icons/sunny.webp";
+import moon from "../assets/icons/moon.webp";
+import rain from "../assets/icons/rain.webp";
+import cloud from "../assets/icons/cloud.webp";
+import snow from "../assets/icons/snow.webp";
+import thunderstorm from "../assets/icons/thunderstorm.webp";
+import fog from "../assets/icons/fog.webp";
+
 const mapWeatherToIcon = (main, isDayTime) => {
-  if (main === "Clear" && isDayTime) return "sunny";
-  if (main === "Clear" && !isDayTime) return "moon";
-  if (["Rain", "Drizzle"].includes(main)) return "rain";
-  if (main === "Clouds") return "cloud";
-  if (main === "Snow") return "snow";
-  if (main === "Thunderstorm") return "thunderstorm";
-  if (["Mist", "Smoke", "Haze", "Fog"].includes(main)) return "fog";
-  return undefined;
+  if (main === "Clear" && isDayTime) return sunny;
+  if (main === "Clear" && !isDayTime) return moon;
+  if (["Rain", "Drizzle"].includes(main)) return rain;
+  if (main === "Clouds") return cloud;
+  if (main === "Snow") return snow;
+  if (main === "Thunderstorm") return thunderstorm;
+  if (["Mist", "Smoke", "Haze", "Fog"].includes(main)) return fog;
+  return sunny;
 };
 
 export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
@@ -51,21 +59,25 @@ export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {
 
   const isDayTime = getIsDayTime();
 
-  const iconName = mapWeatherToIcon(main, isDayTime);
+  const iconSrc = mapWeatherToIcon(main, isDayTime);
 
   return (
     <>
       {/* Use custom icon */}
-      {iconName && (
+      {iconSrc && (
         <img
-          src={`icons/${iconName}.png`}
-          alt={iconName}
+          src={iconSrc}
+          alt={"weather-icon"}
           style={{ width: size, height: size }}
         />
       )}
       {/* Use default openweather icon */}
-      {iconName === undefined && (
-        <img src={fallback} alt="main" style={{ width: size, height: size }} />
+      {iconSrc === undefined && (
+        <img
+          src={fallback}
+          alt="weather-icon"
+          style={{ width: size, height: size }}
+        />
       )}
     </>
   );
