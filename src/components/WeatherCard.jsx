@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { popInRight } from "../styles/animations";
 
 import { useWeather } from "../context/WeatherContext";
 
 import { useLiveClock } from "../hooks/useLiveClock";
 import { useLocalTime } from "../hooks/useLocalTime";
+import { useReanimate } from "../hooks/useReanimate";
 
 import { WeatherIcon } from "./WeatherIcon";
 import TimeIcon from "../assets/local-time.svg?react";
@@ -53,10 +55,14 @@ const IconWrapper = styled.div`
   --size: 120px;
   position: absolute;
   top: calc(-1 * var(--size) / 3);
-  /* right: calc(-1 * var(--size) / 2); */
   right: -10px;
   height: var(--size);
   width: var(--size);
+  ${({ animate }) =>
+    animate &&
+    css`
+      animation: ${popInRight} 0.3s ease forwards;
+    `}
 `;
 
 const TimeWrapper = styled.div`
@@ -87,6 +93,7 @@ export const WeatherCard = ({ weather, active }) => {
   const current = active === 0 ? true : false;
   const { localWeatherData } = useWeather();
   const isDemo = localWeatherData.isDemo;
+  const animate = useReanimate(active, weather);
   return (
     <Wrapper>
       <Item>
@@ -100,7 +107,7 @@ export const WeatherCard = ({ weather, active }) => {
       <Item>
         <h4>{Math.round(weather.main.temp)}°C</h4>
       </Item>
-      <IconWrapper>
+      <IconWrapper animate={animate}>
         <WeatherIcon
           main={weather.weather[0].main}
           size={"100%"}

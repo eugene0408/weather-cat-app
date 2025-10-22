@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
-import MontserratRegular from "./assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-regular.woff2";
-import MontserratThin from "./assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-300.woff2";
-import MontserratBold from "./assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-700.woff2";
+import MontserratRegular from "../assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-regular.woff2";
+import MontserratThin from "../assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-300.woff2";
+import MontserratBold from "../assets/fonts/montserrat-v30-cyrillic_cyrillic-ext_latin_latin-ext-700.woff2";
 
 export const GlobalStyles = createGlobalStyle`
   @font-face {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -106,7 +106,7 @@ const NextArrow = (props) => {
   );
 };
 
-export const ForecastSlider = ({ children }) => {
+export const ForecastSlider = ({ children, weather }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -121,9 +121,19 @@ export const ForecastSlider = ({ children }) => {
     ],
   };
 
+  const sliderRef = useRef();
+  // Reset pagination when data chaged
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(0);
+    }
+  }, [weather]);
+
   return (
     <CarouselWrapper>
-      <Slider {...settings}>{children}</Slider>
+      <Slider ref={sliderRef} {...settings}>
+        {children}
+      </Slider>
     </CarouselWrapper>
   );
 };

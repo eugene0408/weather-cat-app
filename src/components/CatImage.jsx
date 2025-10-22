@@ -1,3 +1,7 @@
+import styled, { css } from "styled-components";
+import { useReanimate } from "../hooks/useReanimate";
+import { zoomIn } from "../styles/animations";
+
 const mapCatImage = (weather) => {
   const temp = Math.round(weather.main.temp);
   const main = weather.weather[0].main;
@@ -40,7 +44,18 @@ const mapCatImage = (weather) => {
   }
 };
 
-export const CatImage = ({ weather }) => {
+const Image = styled.img`
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  ${({ animate }) =>
+    animate &&
+    css`
+      animation: ${zoomIn} 0.3s ease forwards;
+    `}
+`;
+
+export const CatImage = ({ weather, active }) => {
   const catImage = mapCatImage(weather);
   const image1x = new URL(
     `../assets/images/${catImage}@1x.webp`,
@@ -51,12 +66,14 @@ export const CatImage = ({ weather }) => {
     import.meta.url
   ).href;
 
+  const animate = useReanimate(active, weather.id);
+
   return (
-    <img
+    <Image
       src={image1x}
       srcSet={`${image1x} 1x, ${image2x} 2x`}
       alt={`${catImage}-cat`}
-      style={{ height: "100%", width: "auto", objectFit: "contain" }}
+      animate={animate}
     />
   );
 };

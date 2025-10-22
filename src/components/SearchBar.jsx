@@ -65,6 +65,7 @@ export const SearchBar = ({ city, setCity, onSearch, handleFocus }) => {
       <StyledLocationIcon />
       <Input
         value={city}
+        placeholder="Type a location"
         onChange={(e) => setCity(e.target.value)}
         onFocus={() => handleFocus()}
         onKeyDown={(e) => {

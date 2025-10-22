@@ -25,15 +25,6 @@ export const Container = styled.div`
     max-width: 720px;
     padding-top: 8rem;
   }
-  /* @media (min-width: 992px) {
-    max-width: 960px;
-  }
-  @media (min-width: 1200px) {
-    max-width: 960px;
-  }
-  @media (min-width: 1400px) {
-    max-width: 960px;
-  } */
 `;
 
 export const SearchWrapper = styled.div`

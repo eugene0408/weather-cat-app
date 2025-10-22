@@ -6,13 +6,13 @@ export const useWeather = () => useContext(WeatherContext);
 
 export const WeatherProvider = ({ children }) => {
   const [localWeatherData, setLocalWeatherData] = useState({
+    isDemo: false,
     name: "",
     country: "",
     dt: null,
     sunrise: null,
     sunset: null,
     timezone: null,
-    isDemo: false,
   });
   return (
     <WeatherContext.Provider value={{ localWeatherData, setLocalWeatherData }}>

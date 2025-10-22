@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import { GlobalStyles } from "./GlobalStyles";
+import { GlobalStyles } from "./styles/globalStyles";
 import useLocalStorage from "use-local-storage";
 
 import defaultSuggestions from "./data/suggestions.json";
@@ -16,7 +16,7 @@ import { useWeather } from "./context/WeatherContext";
 import { useTheme } from "./context/ThemeContext";
 import { useIsMobile } from "./hooks/useIsMobile";
 
-import { lightTheme, darkTheme } from "./themes";
+import { lightTheme, darkTheme } from "./styles/themes";
 
 import {
   SearchBar,
@@ -56,7 +56,7 @@ function App() {
 
   const saveUserCity = (city) => {
     const updated = [city, ...userSuggestions.filter((c) => c != city)];
-    setUserSuggestions(updated.slice(0, 8));
+    setUserSuggestions(updated.slice(0, 6));
   };
 
   const { setLocalWeatherData } = useWeather();
@@ -118,7 +118,7 @@ function App() {
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      console.log("weather:", weatherResult, "forecast:", forecastResult);
+      // console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
       setCityNotFound(true);
@@ -132,17 +132,18 @@ function App() {
     const demoWeather = demoData.weather;
     setWeather(demoWeather);
     setLocalWeatherData({
+      isDemo: true,
       name: demoWeather.name,
       country: null,
       dt: demoWeather.dt,
       sunrise: demoWeather.sys.sunrise,
       sunset: demoWeather.sys.sunset,
       timezone: demoWeather.timezone,
-      isDemo: true,
     });
     const demoForecast = demoData.forecast;
     setForecast(demoForecast);
     setSuggestions([]);
+    console.log(`demo mode ${weather}`);
   };
 
   // Active card reset
@@ -167,14 +168,19 @@ function App() {
             onSearch={handleSearch}
             handleFocus={handleInputFocus}
           />
-          {cityNotFound && <p>City not found, try to input a part of name</p>}
-
+          {cityNotFound && (
+            <p style={{ width: "100%", textAlign: "center" }}>
+              Location not found. Try typing part of the name.
+            </p>
+          )}
+          {/* === Search suggestions === */}
           {suggestions !== undefined && suggestions.length > 0 && (
             <Suggestions
               suggestions={suggestions}
               handleClick={handleSuggestionClick}
             />
           )}
+          {/* === Saved suggestions === */}
           {(!weather || !isMobile) && (
             <UserSuggestions
               userSuggestions={userSuggestions}
@@ -190,15 +196,15 @@ function App() {
               <WeatherCard weather={activeWeatherData} active={activeCard} />
             </WeatherWrapper>
             <CatImageWrapper>
-              <CatImage weather={activeWeatherData} />
-              <ThemeToggle />
+              <CatImage weather={activeWeatherData} active={activeCard} />
             </CatImageWrapper>
+            <ThemeToggle />
           </MainWrapper>
         )}
 
         {weather && forecast && (
           <ForecastWrapper>
-            <ForecastSlider>
+            <ForecastSlider weather={weather}>
               {/* First item for current weather */}
               <div key={"f0"}>
                 <ForecastCard

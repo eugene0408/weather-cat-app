@@ -21,6 +21,10 @@ const ToggleButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: ${(props) => props.theme.colors.shadow};
+  @media (min-width: 768px) {
+    top: 0;
+    bottom: auto;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -37,8 +41,8 @@ const ToggleButton = styled.button`
   }
   svg path,
   svg circle {
-    stroke: ${(props) => props.theme.colors.text};
-    opacity: 0.8;
+    stroke: ${(props) => props.theme.colors.accent};
+    opacity: 0.95;
   }
 `;
 
@@ -47,7 +51,7 @@ export const ThemeToggle = () => {
 
   return (
     <ToggleButton onClick={toggleTheme}>
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      {isDark ? <MoonIcon /> : <SunIcon />}
     </ToggleButton>
   );
 };
