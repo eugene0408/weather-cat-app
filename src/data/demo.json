@@ -1,5 +1,6 @@
 {
   "weather": {
+    "id": 999999999,
     "name": "Hogwards",
     "dt": 1735711200,
     "timezone": 3600,

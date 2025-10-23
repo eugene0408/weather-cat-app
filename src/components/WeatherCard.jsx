@@ -93,7 +93,7 @@ export const WeatherCard = ({ weather, active }) => {
   const current = active === 0 ? true : false;
   const { localWeatherData } = useWeather();
   const isDemo = localWeatherData.isDemo;
-  const animate = useReanimate(active, weather);
+  const animate = useReanimate(active, weather.id);
   return (
     <Wrapper>
       <Item>

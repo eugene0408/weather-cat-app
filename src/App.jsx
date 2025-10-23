@@ -118,7 +118,7 @@ function App() {
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      // console.log("weather:", weatherResult, "forecast:", forecastResult);
+      // console.log("weather:", weatherResult, "forecast:", forecastResult);\
     } catch (error) {
       console.error("Get result error: ", error);
       setCityNotFound(true);

@@ -5,10 +5,9 @@ export const useReanimate = (...deps) => {
 
   useEffect(() => {
     setAnimate(false);
-    const timeout = setTimeout(() => setAnimate(true), 0);
+    const timeout = setTimeout(() => setAnimate(true), 50);
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
-
   return animate;
 };
