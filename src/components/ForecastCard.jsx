@@ -1,7 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { zoomIn } from "../styles/animations";
+
 import { useWeather } from "../context/WeatherContext";
+
 import { useLocalTime } from "../hooks/useLocalTime";
 import { useLiveClock } from "../hooks/useLiveClock";
+import { useReanimate } from "../hooks/useReanimate";
+
 import { WeatherIcon } from "./WeatherIcon";
 
 const Container = styled.div`
@@ -31,7 +36,7 @@ const CardWrapper = styled.div`
   @media (hover: hover) {
     &:hover {
       background: ${(props) =>
-        props.active
+        props.$active
           ? props.theme.colors.activeCardBackground
           : props.theme.colors.hoverCardBackground};
     }
@@ -42,8 +47,18 @@ const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: auto;
+  margin: 0.3em 0;
+  ${({ animate }) =>
+    animate &&
+    css`
+      animation: ${zoomIn} 0.4s ease-in forwards;
+    `}
+  & img {
+    transform: ${(props) => (props.$active ? "scale(1.1)" : "scale(1)")};
+    transition: all 0.3s ease;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -107,6 +122,8 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
   const timestamp = forecastItem.dt;
   const fallbackImgUrl = `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}@2x.png`;
 
+  const animate = useReanimate(localWeatherData.id);
+
   // Slice long words and text of description
   const truncateWords = (text) => {
     const truncatedWords = text
@@ -130,7 +147,7 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
           <Time>{isCurrent && !isDemo ? liveTime : localTime.time}</Time>
           <Date>{localTime.date}</Date>
         </TextWrapper>
-        <IconWrapper>
+        <IconWrapper animate={animate} $active={isActive}>
           <WeatherIcon
             main={main}
             size="100%"

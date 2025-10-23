@@ -51,7 +51,7 @@ const Image = styled.img`
   ${({ animate }) =>
     animate &&
     css`
-      animation: ${zoomIn} 0.3s ease forwards;
+      animation: ${zoomIn} 0.4s ease-in forwards;
     `}
 `;
 

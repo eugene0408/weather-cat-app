@@ -107,6 +107,7 @@ function App() {
       setWeather(weatherResult);
       setLocalWeatherData({
         name: weatherResult.name,
+        id: weatherResult.id,
         country: weatherResult.sys.country,
         dt: weatherResult.dt,
         sunrise: weatherResult.sys.sunrise,
@@ -134,6 +135,7 @@ function App() {
     setLocalWeatherData({
       isDemo: true,
       name: demoWeather.name,
+      id: 999999,
       country: null,
       dt: demoWeather.dt,
       sunrise: demoWeather.sys.sunrise,
