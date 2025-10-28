@@ -1,22 +1,15 @@
 import { useWeather } from "../context/WeatherContext";
-
-import sunny from "../assets/icons/sunny.webp";
-import moon from "../assets/icons/moon.webp";
-import rain from "../assets/icons/rain.webp";
-import cloud from "../assets/icons/cloud.webp";
-import snow from "../assets/icons/snow.webp";
-import thunderstorm from "../assets/icons/thunderstorm.webp";
-import fog from "../assets/icons/fog.webp";
+import { weatherIcons } from "../assets/images";
 
 const mapWeatherToIcon = (main, isDayTime) => {
-  if (main === "Clear" && isDayTime) return sunny;
-  if (main === "Clear" && !isDayTime) return moon;
-  if (["Rain", "Drizzle"].includes(main)) return rain;
-  if (main === "Clouds") return cloud;
-  if (main === "Snow") return snow;
-  if (main === "Thunderstorm") return thunderstorm;
-  if (["Mist", "Smoke", "Haze", "Fog"].includes(main)) return fog;
-  return sunny;
+  if (main === "Clear" && isDayTime) return weatherIcons.sunny;
+  if (main === "Clear" && !isDayTime) return weatherIcons.moon;
+  if (["Rain", "Drizzle"].includes(main)) return weatherIcons.rain;
+  if (main === "Clouds") return weatherIcons.cloud;
+  if (main === "Snow") return weatherIcons.snow;
+  if (main === "Thunderstorm") return weatherIcons.thunderstorm;
+  if (["Mist", "Smoke", "Haze", "Fog"].includes(main)) return weatherIcons.fog;
+  return weatherIcons.sunny;
 };
 
 export const WeatherIcon = ({ main, timestamp, fallback, size = "64px" }) => {

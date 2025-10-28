@@ -50,8 +50,8 @@ const IconWrapper = styled.div`
   width: 90%;
   height: auto;
   margin: 0.3em 0;
-  ${({ animate }) =>
-    animate &&
+  ${({ $animate }) =>
+    $animate &&
     css`
       animation: ${zoomIn} 0.4s ease-in forwards;
     `}
@@ -147,7 +147,7 @@ export const ForecastCard = ({ forecastItem, active, setActive, index }) => {
           <Time>{isCurrent && !isDemo ? liveTime : localTime.time}</Time>
           <Date>{localTime.date}</Date>
         </TextWrapper>
-        <IconWrapper animate={animate} $active={isActive}>
+        <IconWrapper $animate={animate} $active={isActive}>
           <WeatherIcon
             main={main}
             size="100%"

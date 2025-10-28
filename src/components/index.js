@@ -7,6 +7,7 @@ import { CatImage } from "./CatImage";
 import { UserSuggestions } from "./UserSuggestions";
 import { ForecastSlider } from "./ForecastSlider";
 import { ThemeToggle } from "./ThemeToggle";
+import { Preloader } from "./Preloader";
 
 export {
   SearchBar,
@@ -18,4 +19,5 @@ export {
   UserSuggestions,
   ForecastSlider,
   ThemeToggle,
+  Preloader,
 };

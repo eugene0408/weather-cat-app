@@ -16,8 +16,8 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
-    background: "linear-gradient(315deg, #003153 0%, #1B1B1B 74%)",
     // background: "#1F2E54",
+    background: "linear-gradient(315deg, #003153 0%, #1B1B1B 74%)",
     accent: "#FFB300",
     cardBackground: "rgba(255, 255, 255, 0.1)",
     activeCardBackground: "linear-gradient(45deg, #4b6cb7 0%, #182848 100%)",

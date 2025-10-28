@@ -15,8 +15,11 @@ import {
 import { useWeather } from "./context/WeatherContext";
 import { useTheme } from "./context/ThemeContext";
 import { useIsMobile } from "./hooks/useIsMobile";
+import { usePreloadImages } from "./hooks/usePreloadImages";
 
 import { lightTheme, darkTheme } from "./styles/themes";
+
+import { allImagesList } from "./assets/images";
 
 import {
   SearchBar,
@@ -27,6 +30,7 @@ import {
   ForecastCard,
   CatImage,
   ThemeToggle,
+  Preloader,
 } from "./components";
 
 import {
@@ -159,9 +163,12 @@ function App() {
   const { isDark } = useTheme();
   const currentTheme = isDark ? darkTheme : lightTheme;
 
+  const imagesLoaded = usePreloadImages(allImagesList);
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
+      {!imagesLoaded && <Preloader />}
       <Container>
         <SearchWrapper $isActive={isInputFocused} ref={searchRef}>
           <SearchBar

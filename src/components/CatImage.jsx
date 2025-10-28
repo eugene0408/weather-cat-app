@@ -48,8 +48,8 @@ const Image = styled.img`
   height: 100%;
   width: auto;
   object-fit: contain;
-  ${({ animate }) =>
-    animate &&
+  ${({ $animate }) =>
+    $animate &&
     css`
       animation: ${zoomIn} 0.4s ease-in forwards;
     `}
@@ -58,11 +58,11 @@ const Image = styled.img`
 export const CatImage = ({ weather, active }) => {
   const catImage = mapCatImage(weather);
   const image1x = new URL(
-    `../assets/images/${catImage}@1x.webp`,
+    `../assets/images/cats/${catImage}@1x.webp`,
     import.meta.url
   ).href;
   const image2x = new URL(
-    `../assets/images/${catImage}@2x.webp`,
+    `../assets/images/cats/${catImage}@2x.webp`,
     import.meta.url
   ).href;
 
@@ -73,7 +73,7 @@ export const CatImage = ({ weather, active }) => {
       src={image1x}
       srcSet={`${image1x} 1x, ${image2x} 2x`}
       alt={`${catImage}-cat`}
-      animate={animate}
+      $animate={animate}
     />
   );
 };

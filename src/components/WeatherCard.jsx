@@ -58,8 +58,8 @@ const IconWrapper = styled.div`
   right: -10px;
   height: var(--size);
   width: var(--size);
-  ${({ animate }) =>
-    animate &&
+  ${({ $animate }) =>
+    $animate &&
     css`
       animation: ${popInRight} 0.3s ease forwards;
     `}
@@ -107,7 +107,7 @@ export const WeatherCard = ({ weather, active }) => {
       <Item>
         <h4>{Math.round(weather.main.temp)}°C</h4>
       </Item>
-      <IconWrapper animate={animate}>
+      <IconWrapper $animate={animate}>
         <WeatherIcon
           main={weather.weather[0].main}
           size={"100%"}
