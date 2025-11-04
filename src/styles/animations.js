@@ -1,8 +1,8 @@
 import { keyframes } from "styled-components";
 
 export const zoomIn = keyframes`
-  0% {transform: scale(1.1);}
-  50% {transform: scale(0.9)}
+  0% {transform: scale(1.05);}
+  50% {transform: scale(0.95)}
   100% {transform: scale(1)}
 `;
 

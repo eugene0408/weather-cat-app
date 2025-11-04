@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { useReanimate } from "../hooks/useReanimate";
 import { zoomIn } from "../styles/animations";
+import { allCatsImages } from "../assets/images";
 
 const mapCatImage = (weather) => {
   const temp = Math.round(weather.main.temp);
@@ -18,9 +19,9 @@ const mapCatImage = (weather) => {
       return "fog";
     // Clouds
     case main === "Clouds" && temp > 0 && temp <= 5:
-      return "cloudy-cold2";
+      return "cloudyCold2";
     case main === "Clouds" && temp > 5 && temp <= 12:
-      return "cloudy-cold";
+      return "cloudyCold";
     case main === "Clouds" && temp > 12:
       return "cloudy";
     // Cold
@@ -57,14 +58,7 @@ const Image = styled.img`
 
 export const CatImage = ({ weather, active }) => {
   const catImage = mapCatImage(weather);
-  const image1x = new URL(
-    `../assets/images/cats/${catImage}@1x.webp`,
-    import.meta.url
-  ).href;
-  const image2x = new URL(
-    `../assets/images/cats/${catImage}@2x.webp`,
-    import.meta.url
-  ).href;
+  const { "1x": image1x, "2x": image2x } = allCatsImages[catImage];
 
   const animate = useReanimate(active, weather.id);
 

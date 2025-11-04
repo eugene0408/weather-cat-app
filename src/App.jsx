@@ -110,6 +110,7 @@ function App() {
       const weatherResult = await getWeatherByCity(suggestedName);
       setWeather(weatherResult);
       setLocalWeatherData({
+        isDemo: false,
         name: weatherResult.name,
         id: weatherResult.id,
         country: weatherResult.sys.country,
@@ -117,13 +118,12 @@ function App() {
         sunrise: weatherResult.sys.sunrise,
         sunset: weatherResult.sys.sunset,
         timezone: weatherResult.timezone,
-        isDemo: false,
       });
 
       const forecastResult = await getForecastByCity(suggestedName);
       setForecast(forecastResult);
       setSuggestions([]);
-      // console.log("weather:", weatherResult, "forecast:", forecastResult);\
+      // console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
       setCityNotFound(true);
@@ -149,7 +149,6 @@ function App() {
     const demoForecast = demoData.forecast;
     setForecast(demoForecast);
     setSuggestions([]);
-    console.log(`demo mode ${weather}`);
   };
 
   // Active card reset
