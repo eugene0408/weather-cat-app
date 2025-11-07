@@ -41,6 +41,7 @@ import {
   CatImageWrapper,
   ForecastWrapper,
 } from "./App.styles";
+import { SiNushell } from "react-icons/si";
 
 function App() {
   const searchRef = useRef(null);
@@ -63,15 +64,13 @@ function App() {
     setUserSuggestions(updated.slice(0, 6));
   };
 
-  const { setLocalWeatherData } = useWeather();
+  const { localWeatherData, setLocalWeatherData } = useWeather();
   const isMobile = useIsMobile();
 
-  const handleInputFocus = () => {
-    setCity(""); //clear input
-    setIsInputFocused(true);
-    if (weather) {
-      setWeather(null); //clear weather
-    }
+  const clearInput = () => setCity("");
+  const focusInput = () => setIsInputFocused(true);
+  const clearWeather = () => setWeather(null);
+  const scrollInputIntoView = () => {
     setTimeout(() => {
       if (searchRef.current) {
         searchRef.current.scrollIntoView({
@@ -83,7 +82,24 @@ function App() {
     }, 100);
   };
 
+  const handleInputFocus = () => {
+    clearInput();
+    focusInput();
+    if (weather) {
+      clearWeather();
+    }
+    scrollInputIntoView();
+  };
+
   const handleSearch = async () => {
+    if (localWeatherData.isDemo) {
+      handleInputFocus();
+      return;
+    }
+    if (!isInputFocused) {
+      focusInput();
+      scrollInputIntoView();
+    }
     setCityNotFound(false);
     setWeather(null);
     setForecast(null);
