@@ -98,7 +98,9 @@ function App() {
     }
     if (!isInputFocused) {
       focusInput();
+      clearWeather();
       scrollInputIntoView();
+      setActiveCard(0);
     }
     setCityNotFound(false);
     setWeather(null);
@@ -124,21 +126,25 @@ function App() {
     setIsInputFocused(false);
     try {
       const weatherResult = await getWeatherByCity(suggestedName);
-      setWeather(weatherResult);
-      setLocalWeatherData({
-        isDemo: false,
-        name: weatherResult.name,
-        id: weatherResult.id,
-        country: weatherResult.sys.country,
-        dt: weatherResult.dt,
-        sunrise: weatherResult.sys.sunrise,
-        sunset: weatherResult.sys.sunset,
-        timezone: weatherResult.timezone,
-      });
-
       const forecastResult = await getForecastByCity(suggestedName);
-      setForecast(forecastResult);
+
       setSuggestions([]);
+
+      setTimeout(() => {
+        setWeather(weatherResult);
+        setLocalWeatherData({
+          isDemo: false,
+          name: weatherResult.name,
+          id: weatherResult.id,
+          country: weatherResult.sys.country,
+          dt: weatherResult.dt,
+          sunrise: weatherResult.sys.sunrise,
+          sunset: weatherResult.sys.sunset,
+          timezone: weatherResult.timezone,
+        });
+        setForecast(forecastResult);
+      }, 100);
+
       // console.log("weather:", weatherResult, "forecast:", forecastResult);
     } catch (error) {
       console.error("Get result error: ", error);
@@ -151,20 +157,23 @@ function App() {
     setIsInputFocused(false);
     setCity("Demo Mode");
     const demoWeather = demoData.weather;
-    setWeather(demoWeather);
-    setLocalWeatherData({
-      isDemo: true,
-      name: demoWeather.name,
-      id: 999999,
-      country: null,
-      dt: demoWeather.dt,
-      sunrise: demoWeather.sys.sunrise,
-      sunset: demoWeather.sys.sunset,
-      timezone: demoWeather.timezone,
-    });
     const demoForecast = demoData.forecast;
-    setForecast(demoForecast);
-    setSuggestions([]);
+
+    setTimeout(() => {
+      setWeather(demoWeather);
+      setLocalWeatherData({
+        isDemo: true,
+        name: demoWeather.name,
+        id: 999999,
+        country: null,
+        dt: demoWeather.dt,
+        sunrise: demoWeather.sys.sunrise,
+        sunset: demoWeather.sys.sunset,
+        timezone: demoWeather.timezone,
+      });
+      setForecast(demoForecast);
+      setSuggestions([]);
+    }, 100);
   };
 
   // Active card reset
