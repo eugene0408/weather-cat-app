@@ -37,7 +37,7 @@ const ImageContainer = styled.div`
   height: 100%;
   width: ${(props) => props.$width};
   position: absolute;
-  top: 48%;
+  top: 55%;
   left: ${(props) => props.$offset};
   overflow: visible;
   @media (min-width: 768px) {
