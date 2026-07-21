@@ -55,7 +55,7 @@ export const BackgroundImage = ({ weather }) => {
   const { isDark } = useTheme();
   const backgroundImageName = mapBackgroundImages(weather, isDark);
   const isMobile = useIsMobile();
-  const containerWidth = isMobile ? 150 : 140;
+  const containerWidth = isMobile ? 120 : 140;
   const containerOffset = (100 - containerWidth) / 2;
   return (
     <ImageContainer
