@@ -24,7 +24,7 @@ const CardWrapper = styled.div`
   height: 220px;
   width: var(--width);
   border-radius: calc(var(--width) / 2);
-  box-shadow: ${(props) => props.theme.colors.cardShadow};
+  box-shadow: ${(props) => props.theme.colors.forecastCardShadow};
   overflow: visible;
   position: relative;
   margin: 0;

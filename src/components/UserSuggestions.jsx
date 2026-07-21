@@ -26,6 +26,12 @@ const ItemButton = styled.button`
   cursor: pointer;
 `;
 
+const DemoButton = styled(ItemButton)`
+  background-image: ${(props) => props.theme.colors.buttonGradient};
+  background-size: 200% auto;
+  box-shadow: none;
+`;
+
 export const UserSuggestions = ({
   userSuggestions,
   handleClick,
@@ -38,9 +44,9 @@ export const UserSuggestions = ({
           {item}
         </ItemButton>
       ))}
-      <ItemButton onClick={() => demoClick()} key={`us999`}>
+      <DemoButton onClick={() => demoClick()} key={`us999`}>
         Demo Mode
-      </ItemButton>
+      </DemoButton>
     </Wrapper>
   );
 };

@@ -6,7 +6,7 @@ import { useTheme } from "../context/ThemeContext";
 
 const ToggleButton = styled.button`
   position: absolute;
-  bottom: 15%;
+  top: 10%;
   right: 0;
   z-index: 1000;
   background: ${(props) => props.theme.colors.cardBackground};
@@ -23,7 +23,6 @@ const ToggleButton = styled.button`
   box-shadow: ${(props) => props.theme.colors.shadow};
   @media (min-width: 768px) {
     top: 0;
-    bottom: auto;
   }
 
   &:hover {
@@ -51,7 +50,7 @@ export const ThemeToggle = () => {
 
   return (
     <ToggleButton onClick={toggleTheme}>
-      {isDark ? <MoonIcon /> : <SunIcon />}
+      {isDark ? <SunIcon /> : <MoonIcon />}
     </ToggleButton>
   );
 };

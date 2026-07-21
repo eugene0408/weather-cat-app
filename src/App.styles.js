@@ -14,6 +14,7 @@ export const Container = styled.div`
   max-width: 768px;
   /* min-height: 100vh; */
   color: ${(props) => props.theme.colors.text};
+  overflow: visible;
 
   @media (min-width: 420px) {
     max-width: 356px;
@@ -51,16 +52,19 @@ export const SearchWrapper = styled.div`
 export const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
   width: 100%;
   position: relative;
+  overflow: visible;
+  height: 340px;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: flex-end;
     height: 340px;
     margin-top: 4em;
+    width: 100%;
   }
 `;
 
@@ -75,24 +79,27 @@ export const WeatherWrapper = styled.div`
     align-items: center;
   }
   @media (min-width: 992px) {
-    width: 65%;
+    width: 60%;
   }
 `;
 
 export const CatImageWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: -1.2rem;
-  width: 100%;
-  height: 280px;
+  justify-content: flex-start;
+  margin-top: 0;
   z-index: 2;
-  position: relative;
+  position: absolute;
+  --offset: 12%;
+  left: calc(var(--offset) * -1);
+  bottom: 0;
+  width: calc(var(--offset) + 100%);
+  height: 230px;
   @media (min-width: 768px) {
     position: absolute;
     top: 0;
     left: -2em;
     justify-content: flex-start;
-    height: 340px;
+    height: 300px;
   }
 `;
 

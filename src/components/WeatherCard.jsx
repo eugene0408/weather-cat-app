@@ -18,10 +18,12 @@ const Wrapper = styled.div`
   padding: 1em 0 1em 1em;
   border-radius: 10px;
   background: ${(props) => props.theme.colors.cardBackground};
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: ${(props) => props.theme.colors.shadow};
   box-sizing: border-box;
   @media (min-width: 768px) {
-    padding: 1em 1em 1em 4.5em;
+    padding: 1em 1em 1em 1em;
   }
 `;
 const Item = styled.div`

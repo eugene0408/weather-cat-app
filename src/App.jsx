@@ -31,6 +31,7 @@ import {
   CatImage,
   ThemeToggle,
   Preloader,
+  BackgroundImage,
 } from "./components";
 
 import {
@@ -56,7 +57,7 @@ function App() {
 
   const [userSuggestions, setUserSuggestions] = useLocalStorage(
     "cities",
-    defaultSuggestions
+    defaultSuggestions,
   );
 
   const saveUserCity = (city) => {
@@ -225,13 +226,14 @@ function App() {
 
         {weather && (
           <MainWrapper>
+            <BackgroundImage weather={activeWeatherData} />
             <WeatherWrapper>
               <WeatherCard weather={activeWeatherData} active={activeCard} />
             </WeatherWrapper>
             <CatImageWrapper>
               <CatImage weather={activeWeatherData} active={activeCard} />
+              <ThemeToggle />
             </CatImageWrapper>
-            <ThemeToggle />
           </MainWrapper>
         )}
 

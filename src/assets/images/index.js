@@ -39,6 +39,26 @@ import snowIcon from "./weather/snow.webp";
 import sunnyIcon from "./weather/sunny.webp";
 import thunderstormIcon from "./weather/thunderstorm.webp";
 
+// Backgrounds
+import clearSkyLight from "./backgrounds/clear-sky-light.png";
+import clearSkyDark from "./backgrounds/clear-sky-dark.png";
+import cloudsLight from "./backgrounds/clouds-light.png";
+import cloudsDark from "./backgrounds/clouds-dark.png";
+import rainLight from "./backgrounds/rain-light.png";
+import rainDark from "./backgrounds/rain-dark.png";
+import thunderstormLight from "./backgrounds/thunderstorm-light.png";
+import thunderstormDark from "./backgrounds/thunderstorm-dark.png";
+import hotLight from "./backgrounds/hot-light.png";
+import hotDark from "./backgrounds/hot-dark.png";
+import winterLight from "./backgrounds/winter-light.png";
+import winterDark from "./backgrounds/winter-dark.png";
+import snowfallLight from "./backgrounds/snowfall-light.png";
+import snowfallDark from "./backgrounds/snowfall-dark.png";
+import freezingLight from "./backgrounds/freezing-light.png";
+import freezingDark from "./backgrounds/freezing-dark.png";
+import fogLight from "./backgrounds/fog-light.png";
+import fogDark from "./backgrounds/fog-dark.png";
+
 export const catImages = {
   cloudyCold2,
   cloudyCold,
@@ -98,6 +118,27 @@ export const weatherIcons = {
   snow: snowIcon,
   sunny: sunnyIcon,
   thunderstorm: thunderstormIcon,
+};
+
+export const backgroundImages = {
+  clearSkyLight,
+  clearSkyDark,
+  cloudsLight,
+  cloudsDark,
+  rainDark,
+  rainLight,
+  thunderstormDark,
+  thunderstormLight,
+  hotLight,
+  hotDark,
+  winterLight,
+  winterDark,
+  snowfallLight,
+  snowfallDark,
+  freezingLight,
+  freezingDark,
+  fogLight,
+  fogDark,
 };
 
 export const allImagesList = [

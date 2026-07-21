@@ -8,6 +8,7 @@ import { UserSuggestions } from "./UserSuggestions";
 import { ForecastSlider } from "./ForecastSlider";
 import { ThemeToggle } from "./ThemeToggle";
 import { Preloader } from "./Preloader";
+import { BackgroundImage } from "./BackgroundImage";
 
 export {
   SearchBar,
@@ -20,4 +21,5 @@ export {
   ForecastSlider,
   ThemeToggle,
   Preloader,
+  BackgroundImage,
 };

@@ -1,6 +1,4 @@
-import styled from "styled-components";
-import { spin } from "../styles/animations";
-import { weatherIcons } from "../assets/images";
+import styled, { keyframes } from "styled-components";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -17,18 +15,43 @@ const Wrapper = styled.div`
   z-index: 999;
 `;
 
-const Image = styled.img`
-  height: 120px;
-  width: auto;
-  animation: ${spin} 2s ease infinite;
+const cloudsAnimation = keyframes`
+  100% {left:var(--l,105%)}
 `;
 
-const sunIcon = weatherIcons.sunny;
+const Loader = styled.div`
+  width: 160px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -40px;
+    width: 36px;
+    height: 20px;
+    --c: radial-gradient(farthest-side, #fff 96%, #0000);
+    background:
+      var(--c) 100% 100% /30% 60%,
+      var(--c) 70% 0 /50% 100%,
+      var(--c) 0 100% /36% 68%,
+      var(--c) 27% 18% /26% 40%,
+      linear-gradient(#fff 0 0) bottom/67% 58%;
+    background-repeat: no-repeat;
+    animation: ${cloudsAnimation} 2s linear infinite;
+  }
+  &::after {
+    top: 15px;
+    --l: 200%;
+  }
+`;
 
 export const Preloader = () => {
   return (
     <Wrapper>
-      <Image src={sunIcon} alt="icon" />
+      <Loader />
     </Wrapper>
   );
 };
