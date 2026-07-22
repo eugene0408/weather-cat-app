@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { popInRight } from "../styles/animations";
+import { popInRight, slideFromBotom } from "../styles/animations";
 
 import { useWeather } from "../context/WeatherContext";
 
@@ -10,6 +10,8 @@ import { useReanimate } from "../hooks/useReanimate";
 import { WeatherIcon } from "./WeatherIcon";
 import TimeIcon from "../assets/local-time.svg?react";
 
+import { BackgroundImage } from "./BackgroundImage";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,13 +19,46 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 1em 0 1em 1em;
   border-radius: 10px;
-  background: ${(props) => props.theme.colors.cardBackground};
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: ${(props) => props.theme.colors.cardBorder};
   box-shadow: ${(props) => props.theme.colors.shadow};
   box-sizing: border-box;
+  z-index: 1;
   @media (min-width: 768px) {
     padding: 1em 1em 1em 1em;
+  }
+`;
+
+const Background = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: 10px;
+  ${({ $animate }) =>
+    $animate &&
+    css`
+      img {
+        animation: ${slideFromBotom} 0.5s ease;
+      }
+    `}
+  & img {
+    height: 150%;
+    width: 150%;
+    margin-left: -25%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 120%;
+    height: 120%;
+    background: ${(props) => props.theme.colors.cardBackground};
+    backdrop-filter: blur(15px);
+    box-sizing: border-box;
   }
 `;
 const Item = styled.div`
@@ -36,18 +71,18 @@ const Item = styled.div`
   & span {
     margin: 0;
   }
-  &:nth-of-type(1) {
+  &:nth-of-type(2) {
     font-size: 32px;
     line-height: 1.2;
     font-weight: 700;
     opacity: 0.5;
   }
-  &:nth-of-type(2) {
+  &:nth-of-type(3) {
     font-size: 18px;
     font-weight: 300;
     line-height: 1;
   }
-  &:nth-of-type(3) {
+  &:nth-of-type(4) {
     font-size: 32px;
     font-weight: 700;
   }
@@ -98,6 +133,9 @@ export const WeatherCard = ({ weather, active }) => {
   const animate = useReanimate(active, weather.id);
   return (
     <Wrapper>
+      <Background $animate={animate}>
+        <BackgroundImage weather={weather} />
+      </Background>
       <Item>
         <h5>
           {localWeatherData.name} {localWeatherData.country}

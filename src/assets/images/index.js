@@ -145,4 +145,5 @@ export const allImagesList = [
   ...Object.values(weatherIcons),
   ...Object.values(catImages),
   ...Object.values(catImages2x),
+  ...Object.values(backgroundImages),
 ];

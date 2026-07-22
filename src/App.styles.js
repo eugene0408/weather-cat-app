@@ -68,6 +68,20 @@ export const MainWrapper = styled.main`
   }
 `;
 
+export const BgImageWrapper = styled.div`
+  height: 100%;
+  --width: 120%;
+  width: var(--width);
+  position: absolute;
+  top: 55%;
+  left: calc((100% - var(--width)) / 2);
+  overflow: visible;
+  @media (min-width: 768px) {
+    top: 10%;
+    --width: 140%;
+  }
+`;
+
 export const WeatherWrapper = styled.div`
   width: 100%;
   z-index: 1;

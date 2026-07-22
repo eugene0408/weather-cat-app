@@ -21,3 +21,12 @@ export const popInRight = keyframes`
     transform: translateX(0) scale(1); 
   }
 `;
+
+export const slideFromBotom = keyframes`
+  0% {
+    transform: translateY(-15%) scale(0.8);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+`;

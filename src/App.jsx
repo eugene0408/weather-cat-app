@@ -41,6 +41,7 @@ import {
   WeatherWrapper,
   CatImageWrapper,
   ForecastWrapper,
+  BgImageWrapper,
 } from "./App.styles";
 import { SiNushell } from "react-icons/si";
 
@@ -224,9 +225,12 @@ function App() {
           )}
         </SearchWrapper>
 
+        {/* === Main weather & Images === */}
         {weather && (
           <MainWrapper>
-            <BackgroundImage weather={activeWeatherData} />
+            <BgImageWrapper>
+              <BackgroundImage weather={activeWeatherData} />
+            </BgImageWrapper>
             <WeatherWrapper>
               <WeatherCard weather={activeWeatherData} active={activeCard} />
             </WeatherWrapper>
@@ -236,7 +240,7 @@ function App() {
             </CatImageWrapper>
           </MainWrapper>
         )}
-
+        {/* === Forecast Slider === */}
         {weather && forecast && (
           <ForecastWrapper>
             <ForecastSlider weather={weather}>

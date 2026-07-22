@@ -2,7 +2,8 @@ export const lightTheme = {
   colors: {
     background: "#fff",
     accent: "#FFB300",
-    cardBackground: "rgba(255,255,255, 0.3)",
+    cardBackground: "rgba(255,255,255, 0.6)",
+    cardBorder: "1px solid rgba(255, 255, 255, 0.65)",
     activeCardBackground:
       "linear-gradient(45deg,rgba(102, 224, 209, 1) 0%, rgba(87, 159, 241, 1) 100%)",
     hoverCardBackground:
@@ -24,6 +25,7 @@ export const darkTheme = {
     background: "linear-gradient(315deg, #003153 0%, #1B1B1B 75%)",
     accent: "#FFB300",
     cardBackground: "rgba(255, 255, 255, 0.1)",
+    cardBorder: "1px solid rgba(255, 255, 255, 0.15)",
     activeCardBackground: "linear-gradient(45deg, #4b6cb7 0%, #182848 100%)",
     text: "#ffffff",
     shadow: "2px 2px 10px rgba(0, 0, 0, 0.25)",
